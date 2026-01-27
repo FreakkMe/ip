@@ -1,20 +1,23 @@
 import java.util.Scanner;
 
 public class Freaky {
+
+    public static void print(String string) {
+        System.out.println("----------------------------------------------------- \n"
+                         + string
+                         + "----------------------------------------------------- \n");
+    }
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
 
-        String greet = "----------------------------------------------------- \n"
-                     + "Hello! I'm Freaky. \n"
-                     + "What can I do for you? \n"
-                     + "----------------------------------------------------- \n";
+        String greet = "Hello! I'm Freaky. \n"
+                     + "What can I do for you? \n";
 
-        String bye = "----------------------------------------------------- \n"
-                   + "Bye. Hope to see you again soon! \n"
-                   + "----------------------------------------------------- \n";
+        String bye = "Bye. Hope to see you again soon! \n";
 
-        System.out.println(greet);
+        print(greet);
 
         String input;
         String list = "";
@@ -27,19 +30,15 @@ public class Freaky {
             if (input.equals("bye")) {
                 break;
             } else if (input.equals("list")) {
-                System.out.println("----------------------------------------------------- \n"
-                                 + list
-                                 + "----------------------------------------------------- \n");
+                print(list);
             } else {
                 count++;
                 list = list + String.valueOf(count) + ". " + input + "\n";
-                System.out.println("----------------------------------------------------- \n"
-                                 + "added: " + input + "\n"
-                                 + "----------------------------------------------------- \n");
+                print("added: " + input + "\n");
             }
         }
 
-        System.out.println(bye);
+        print(bye);
 
     }
 }
