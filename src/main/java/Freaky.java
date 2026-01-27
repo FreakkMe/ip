@@ -17,15 +17,24 @@ public class Freaky {
         System.out.println(greet);
 
         String input;
+        String list = "";
+        int count = 0;
 
         while(true) {
+
             input = scanner.nextLine();
 
             if (input.equals("bye")) {
                 break;
-            } else {
+            } else if (input.equals("list")) {
                 System.out.println("----------------------------------------------------- \n"
-                                 + input + "\n"
+                                 + list
+                                 + "----------------------------------------------------- \n");
+            } else {
+                count++;
+                list = list + String.valueOf(count) + ". " + input + "\n";
+                System.out.println("----------------------------------------------------- \n"
+                                 + "added: " + input + "\n"
                                  + "----------------------------------------------------- \n");
             }
         }
