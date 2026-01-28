@@ -11,7 +11,7 @@ public class Freaky {
 
     public static void main(String[] args) {
 
-        // Input of the useer
+        // Input of the user
         Scanner scanner = new Scanner(System.in);
 
         // Greet message
@@ -26,7 +26,7 @@ public class Freaky {
 
         // Initialize variables input to store user's previous input, list to store all user's input and count to store number of user's input
         String input;
-        String list = "";
+        String[] list = new String[100];
         int count = 0;
 
         // Detecting user's input
@@ -39,10 +39,14 @@ public class Freaky {
             if (input.equals("bye")) {
                 break;
             } else if (input.equals("list")) {
-                print(list);
+                System.out.println("-----------------------------------------------------");
+                for (int n = 0; n < count; n++) {
+                    System.out.println(String.valueOf(n + 1) + ". " + list[n]);
+                }
+                System.out.println("-----------------------------------------------------");
             } else {
+                list[count] = input;
                 count++;
-                list = list + String.valueOf(count) + ". " + input + "\n";
                 print("added: " + input + "\n");
             }
         }

@@ -20,4 +20,9 @@ public class Task {
         this.isDone = true;
     }
 
+    // Marks the task as undone
+    public void markAsUndone() {
+        this.isDone = false;
+    }
+
 }
