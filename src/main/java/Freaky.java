@@ -35,8 +35,12 @@ public class Freaky {
             // Stores user's input to input
             input = scanner.nextLine();
 
+            // Checks user's input of different cases: "" (empty)
+            if (input.isEmpty()) {
+                print("Freaky didn't catch what you say, can you please enter it again?");
+
             // Checks user's input of different cases: "bye"
-            if (input.equals("bye")) {
+            } else if (input.equals("bye")) {
                 break;
 
             // Checks user's input of different cases: "list"
@@ -50,7 +54,15 @@ public class Freaky {
                 System.out.println("----------------------------------------------------- \n");
 
             // Checks user's input of different cases: "mark" and "unmark"
-            } else if (input.startsWith("mark ") || input.startsWith(("unmark "))) {
+            } else if (input.startsWith("mark") || input.startsWith(("unmark"))) {
+
+                if (input.startsWith("mark") && input.replaceFirst("mark", "").matches(" *")) {
+                    print("No way broooo please enter an integer after 'mark' command to mark the corresponding task as done. \n"
+                        + "Try something like this: 'mark 2'.");
+                } else if (input.startsWith("unmark") && input.replaceFirst("unmark", "").matches(" *")) {
+                    print("No way broooo please enter an integer after 'unmark' command to mark the corresponding task as undone. \n"
+                            + "Try something like this: 'unmark 2'.");
+                }
 
                 int taskNumber;
 
@@ -59,7 +71,7 @@ public class Freaky {
                     taskNumber = Integer.parseInt(input.split(" ")[1]);
                 } catch (NumberFormatException e) {
                     // Checks if the string after "mark " is an integer, returns a message if not
-                    print("Please enter a valid task number.");
+                    print("Broooo the content following by mark should be a valid task number. T_T");
                     continue;
                 }
 
@@ -71,7 +83,7 @@ public class Freaky {
                 } else {
 
                     // Mark case
-                    if (input.startsWith("mark ")) {
+                    if (input.startsWith("mark")) {
 
                         Task task = list[taskNumber - 1];
 
@@ -111,21 +123,42 @@ public class Freaky {
             // Checks user's input of different cases: "todo", "deadline" and "event"
             } else if (input.startsWith("todo ") || input.startsWith("deadline ") || input.startsWith("event ")) {
 
+                if (input.startsWith("todo ") && input.replaceFirst("todo ", "").matches(" *")) {
+                    print("No way broooo please enter a task description after 'todo' command to add a todo task to the list. \n"
+                            + "Try something like this: 'todo praise Freaky'.");
+                    continue;
+                } else if (input.startsWith("deadline ") && input.contains("/by")
+                        && input.replaceFirst("deadline ", "").replaceFirst("/by", "").matches(" *")
+                        || input.startsWith("deadline ") && !input.contains(" /by ")) {
+                    print("No way broooo please enter a task description and a due date separated by '/by' after 'deadline' command to add a deadline task to the list. \n"
+                            + "Try something like this: 'deadline buy Freaky Premium /by in 5 minutes'.");
+                    continue;
+                } else if (input.startsWith("event ") && input.contains(" /from ") && input.contains(" /to ")
+                        && input.replaceFirst("event ", "").replaceFirst(" /from ", "").replaceFirst(" /to ", "").matches(" *")
+                        || input.startsWith("event ") && (!input.contains((" /from ")) && !input.contains(" /to "))) {
+                    print("No way broooo please enter a task description, a starting time and an ending time separated by '/from' and '/to' after 'event' command to add an event task to the list. \n"
+                            + "Try something like this: 'event chat with Freaky /from now /to forever'.");
+                    continue;
+                }
+
                 // To do case
                 if (input.startsWith("todo ")) {
-                    String task = input.split(" ", 2)[1];
+
+                    String task = input.split("todo ", 2)[1];
                     list[count] = new ToDo(task);
 
                 // Deadline case
-                } else if (input.startsWith("deadline ")) {
-                    String[] deadline = input.split(" ", 2)[1].split(" /by ", 2);
+                } else if (input.startsWith("deadline ") && input.contains(" /by ")) {
+
+                    String[] deadline = input.split("deadline ", 2)[1].split(" /by ", 2);
                     String task = deadline[0];
                     String time = deadline[1];
                     list[count] = new Deadline(task, time);
 
                 // Event case
-                } else {
-                    String[] event = input.split(" ", 2)[1].split(" /from ", 2);
+                } else if (input.startsWith("event ") && input.contains(" /from ") && input.contains(" /to ")){
+
+                    String[] event = input.split("event ", 2)[1].split(" /from ", 2);
                     String task = event[0];
                     String startTime = event[1].split(" /to ", 2)[0];
                     String endTime = event[1].split(" /to ", 2)[1];
