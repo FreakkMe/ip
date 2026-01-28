@@ -57,10 +57,12 @@ public class Freaky {
                     continue;
                 }
 
+                // Checks if the task number is valid, returns a message if not
                 if (taskNumber > count) {
                     print("There is only " + String.valueOf(count) + " tasks in your list, please enter a valid task number.");
                 } else {
                     Task task = list[taskNumber - 1];
+                    // Checks if the task is already marked as done, returns a message if so
                     if (task.getStatusIcon().equals("X")) {
                         print("The task is already marked as done.");
                     } else {
@@ -83,19 +85,20 @@ public class Freaky {
                     continue;
                 }
 
+                // Checks if the task number is valid, returns a message if not
                 if (taskNumber > count) {
                     print("There is only " + String.valueOf(count) + " tasks in your list, please enter a valid task number.");
                 } else {
                     Task task = list[taskNumber - 1];
+                    // Checks if the task is already marked as undone, returns a message if so
                     if (task.getStatusIcon().equals(" ")) {
-                        print("The task is still undone dude.");
+                        print("The task is still undone brooooo.");
                     } else {
                         task.markAsUndone();
                         print("OK, I've marked this task as not done yet: \n"
                                 + " [" + task.getStatusIcon() + "] " + task.description);
                     }
                 }
-
 
             } else {
                 list[count] = new Task(input);
