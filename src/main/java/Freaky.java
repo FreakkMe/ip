@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Freaky {
 
@@ -24,10 +25,9 @@ public class Freaky {
         // Chatbot starts here
         print(greet);
 
-        // Initialize variables input to store user's previous input, list to store all user's input and count to store number of user's input
+        // Initialize variables input to store user's previous input and list to store all user's input
         String input;
-        Task[] list = new Task[100];
-        int count = 0;
+        ArrayList<Task> list = new ArrayList<>(100);
 
         // Detecting user's input
         while(true) {
@@ -36,7 +36,7 @@ public class Freaky {
             input = scanner.nextLine();
 
             // Checks user's input of different cases: "" (empty)
-            if (input.isEmpty()) {
+            if (input.matches(" *")) {
                 print("Freaky didn't catch what you say, can you please enter it again?");
 
             // Checks user's input of different cases: "bye"
@@ -47,8 +47,8 @@ public class Freaky {
             } else if (input.equals("list")) {
                 System.out.println("----------------------------------------------------- \n"
                                  + "Here are the tasks in your list:");
-                for (int n = 0; n < count; n++) {
-                    Task task = list[n];
+                for (int n = 0; n < list.size(); n++) {
+                    Task task = list.get(n);
                     System.out.println(String.valueOf(n + 1) + "." + task.print());
                 }
                 System.out.println("----------------------------------------------------- \n");
@@ -76,16 +76,16 @@ public class Freaky {
                 }
 
                 // Checks if the task number is valid, returns a message if not
-                if (taskNumber > count) {
+                if (taskNumber > list.size()) {
 
-                    print("There is only " + String.valueOf(count) + " tasks in your list, please enter a valid task number.");
+                    print("There is only " + String.valueOf(list.size()) + " tasks in your list, please enter a valid task number.");
 
                 } else {
 
                     // Mark case
                     if (input.startsWith("mark")) {
 
-                        Task task = list[taskNumber - 1];
+                        Task task = list.get(taskNumber - 1);
 
                         // Checks if the task is already marked as done, returns a message if so
                         if (task.getStatusIcon().equals("X")) {
@@ -103,7 +103,7 @@ public class Freaky {
                     // Unmark case
                     } else {
 
-                        Task task = list[taskNumber - 1];
+                        Task task = list.get(taskNumber - 1);
 
                         // Checks if the task is already marked as undone, returns a message if so
                         if (task.getStatusIcon().equals(" ")) {
@@ -123,6 +123,7 @@ public class Freaky {
             // Checks user's input of different cases: "todo", "deadline" and "event"
             } else if (input.startsWith("todo ") || input.startsWith("deadline ") || input.startsWith("event ")) {
 
+                // Checks if the input is valid, returns a message if not
                 if (input.startsWith("todo ") && input.replaceFirst("todo ", "").matches(" *")) {
                     print("No way broooo please enter a task description after 'todo' command to add a todo task to the list. \n"
                             + "Try something like this: 'todo praise Freaky'.");
@@ -145,7 +146,7 @@ public class Freaky {
                 if (input.startsWith("todo ")) {
 
                     String task = input.split("todo ", 2)[1];
-                    list[count] = new ToDo(task);
+                    list.add(new ToDo(task));
 
                 // Deadline case
                 } else if (input.startsWith("deadline ") && input.contains(" /by ")) {
@@ -153,7 +154,7 @@ public class Freaky {
                     String[] deadline = input.split("deadline ", 2)[1].split(" /by ", 2);
                     String task = deadline[0];
                     String time = deadline[1];
-                    list[count] = new Deadline(task, time);
+                    list.add(new Deadline(task, time));
 
                 // Event case
                 } else if (input.startsWith("event ") && input.contains(" /from ") && input.contains(" /to ")){
@@ -162,19 +163,48 @@ public class Freaky {
                     String task = event[0];
                     String startTime = event[1].split(" /to ", 2)[0];
                     String endTime = event[1].split(" /to ", 2)[1];
-                    list[count] = new Event(task, startTime, endTime);
+                    list.add(new Event(task, startTime, endTime));
                 }
 
                 // Prints out case info
-                Task task = list[count];
-                count++;
+                Task task = list.get(list.size() - 1);
                 print("Got it. I've added this task: \n"
                     + "  " + task.print() + "\n"
-                    + "Now you have " + String.valueOf(count) + " tasks in the list.");
+                    + "Now you have " + String.valueOf(list.size()) + " tasks in the list.");
 
+            // Checks user's input of different cases: "delete"
+            } else if (input.startsWith("delete ")) {
+
+                // Checks if the input is valid, returns a message if not
+                if (input.startsWith("delete ") && input.replaceFirst("delete ", "").matches(" *")) {
+                    print("No way broooo please enter an integer after 'delete' command to delete the corresponding task. \n"
+                            + "Try something like this: 'delete 2'.");
+                }
+
+                int taskNumber;
+
+                // Splits the input by " " and cast the input string after it to an integer
+                try {
+                    taskNumber = Integer.parseInt(input.split(" ")[1]);
+                } catch (NumberFormatException e) {
+                    // Checks if the string after "delete " is an integer, returns a message if not
+                    print("Broooo the content following by delete should be a valid task number. T_T");
+                    continue;
+                }
+
+                // Checks if the task number is valid, returns a message if not
+                if (taskNumber > list.size()) {
+                    print("There is only " + String.valueOf(list.size()) + " tasks in your list, please enter a valid task number.");
+                }
+
+                Task removedTask = list.remove(taskNumber - 1);
+                print("Noted. I've removed this task: \n"
+                    + "  " + removedTask.print() + "\n"
+                    + "Now you have " + list.size() + " tasks in the list.");
+
+            // It's an unknown command
             } else {
 
-                // It's an unknown command
                 print("Unknown command T_T");
 
             }
