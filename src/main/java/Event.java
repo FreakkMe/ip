@@ -16,7 +16,7 @@ public class Event extends Task {
 
     @Override
     public String print() {
-        return super.description + " (from: " + this.startTime + " to: " + this.endTime + ")";
+        return "[" + this.getTypeIcon() + "][" + super.getStatusIcon() + "] " + super.description + " (from: " + this.startTime + " to: " + this.endTime + ")";
     }
 
     public String getStartTime() {

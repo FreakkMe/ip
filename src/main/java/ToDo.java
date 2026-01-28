@@ -11,6 +11,6 @@ public class ToDo extends Task {
 
     @Override
     public String print() {
-        return super.description;
+        return "[" + this.getTypeIcon() + "][" + super.getStatusIcon() + "] " + super.description;
     }
 }
