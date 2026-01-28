@@ -47,7 +47,7 @@ public class Freaky {
                     Task task = list[n];
                     System.out.println(String.valueOf(n + 1) + "." + task.print());
                 }
-                System.out.println("-----------------------------------------------------");
+                System.out.println("----------------------------------------------------- \n");
 
             // Checks user's input of different cases: "mark" and "unmark"
             } else if (input.startsWith("mark ") || input.startsWith(("unmark "))) {
