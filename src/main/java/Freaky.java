@@ -38,13 +38,16 @@ public class Freaky {
             // Checks user's input of different cases: "bye", "list" and others
             if (input.equals("bye")) {
                 break;
+
             } else if (input.equals("list")) {
                 System.out.println("----------------------------------------------------- \n"
                                  + "Here are the tasks in your list:");
                 for (int n = 0; n < count; n++) {
-                    System.out.println(String.valueOf(n + 1) + ".[" + list[n].getStatusIcon() + "] " + list[n].description);
+                    Task task = list[n];
+                    System.out.println(String.valueOf(n + 1) + ".[" + task.getTypeIcon() + "][" + task.getStatusIcon() + "] " + task.print());
                 }
                 System.out.println("-----------------------------------------------------");
+
             } else if (input.startsWith("mark ")) {
 
                 int taskNumber;
@@ -68,7 +71,7 @@ public class Freaky {
                     } else {
                         task.markAsDone();
                         print("Nice! I've marked this task as done: \n"
-                                + "  [" + task.getStatusIcon() + "] " + task.description);
+                                + "  [" + task.getTypeIcon() + "][" + task.getStatusIcon() + "] " + task.print());
                     }
                 }
 
@@ -96,14 +99,49 @@ public class Freaky {
                     } else {
                         task.markAsUndone();
                         print("OK, I've marked this task as not done yet: \n"
-                                + " [" + task.getStatusIcon() + "] " + task.description);
+                                + "  [" + task.getTypeIcon() + "][" + task.getStatusIcon() + "] " + task.print());
                     }
                 }
 
-            } else {
-                list[count] = new Task(input);
+            } else if (input.startsWith("todo ")) {
+
+                String task = input.split(" ", 2)[1];
+                list[count] = new ToDo(task);
                 count++;
-                print("Task added: " + input);
+
+                print("Got it. I've added this task: \n"
+                        + "  [T][ ] " + task + " \n"
+                        + "Now you have " + String.valueOf(count) + " tasks in the list.");
+
+            } else if (input.startsWith("deadline ")) {
+
+                String[] deadline = input.split(" ", 2)[1].split(" /by ", 2);
+                String task = deadline[0];
+                String time = deadline[1];
+                list[count] = new Deadline(task, time);
+                count++;
+
+                print("Got it. I've added this task: \n"
+                        + "  [D][ ] " + task + " (by: " + time + ") \n"
+                        + "Now you have " + String.valueOf(count) + " tasks in the list.");
+
+            } else if (input.startsWith("event ")) {
+
+                String[] event = input.split(" ", 2)[1].split(" /from ", 2);
+                String task = event[0];
+                String startTime = event[1].split(" /to ", 2)[0];
+                String endTime = event[1].split(" /to ", 2)[1];
+                list[count] = new Event(task, startTime, endTime);
+                count++;
+
+                print("Got it. I've added this task: \n"
+                    + "  [E][ ] " + task + " (from: " + startTime + " to: " + endTime + ") \n"
+                    + "Now you have " + String.valueOf(count) + " tasks in the list.");
+
+            } else {
+
+                print("Unknown command T_T");
+
             }
         }
 

@@ -1,10 +1,11 @@
-public class Task {
+public abstract class Task {
 
     // String description stores description of the task, boolean isDone stores the status of the task
     protected String description;
     protected boolean isDone;
 
-    // Constuctor of task, default to be marked as undone
+
+    // Constructor of task, default to be marked as undone
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -24,5 +25,8 @@ public class Task {
     public void markAsUndone() {
         this.isDone = false;
     }
+
+    public abstract String getTypeIcon();
+    public abstract String print();
 
 }
