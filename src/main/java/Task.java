@@ -1,5 +1,4 @@
-
-
+// The abstract class for tasks
 public abstract class Task {
 
     // String description stores description of the task, boolean isDone stores the status of the task
@@ -7,12 +6,13 @@ public abstract class Task {
     private Status status;
     private TaskType type;
 
-    // Enum of status
+    // Enumerations of status
     public enum Status {
         DONE,
         NOT_DONE
     }
 
+    // Enumerations of task types
     public enum TaskType {
         TODO,
         DEADLINE,
@@ -58,5 +58,6 @@ public abstract class Task {
     }
 
     public abstract String print();
+    public abstract String toFileString();
 
 }

@@ -1,7 +1,10 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+// The chatbot Freaky
 public class Freaky {
+
+    private static final String FILE_PATH = "./data/freaky.txt";
 
     // Print method to print a string with format bar on top and below
     public static void print(String string) {
@@ -25,9 +28,10 @@ public class Freaky {
         // Chatbot starts here
         print(greet);
 
-        // Initialize variables input to store user's previous input and list to store all user's input
+        // Initialize variables input to store user's previous input, storage to stores data locally  and list to store all user's input
         String input;
-        ArrayList<Task> list = new ArrayList<>(100);
+        Storage storage = new Storage("./data/freaky.txt");
+        ArrayList<Task> list = new ArrayList<>(storage.load());
 
         // Detecting user's input
         while(true) {
@@ -83,7 +87,7 @@ public class Freaky {
                 } else {
 
                     // Mark case
-                    if (input.startsWith("mark")) {
+                    if (input.startsWith("mark ")) {
 
                         Task task = list.get(taskNumber - 1);
 
@@ -95,13 +99,14 @@ public class Freaky {
                         } else {
                             // Marks the task as done
                             task.markAsDone();
+                            storage.save(list);
                             print("Nice! I've marked this task as done: \n"
                                 + "  " + task.print());
 
                         }
 
                     // Unmark case
-                    } else {
+                    } else if (input.startsWith("unmark ")) {
 
                         Task task = list.get(taskNumber - 1);
 
@@ -113,6 +118,7 @@ public class Freaky {
                         } else {
                             // Unmarks the task from done
                             task.markAsUndone();
+                            storage.save(list);
                             print("OK, I've marked this task as not done yet: \n"
                                 + "  " + task.print());
 
@@ -128,12 +134,14 @@ public class Freaky {
                     print("No way broooo please enter a task description after 'todo' command to add a todo task to the list. \n"
                             + "Try something like this: 'todo praise Freaky'.");
                     continue;
+
                 } else if (input.startsWith("deadline ") && input.contains("/by")
                         && input.replaceFirst("deadline ", "").replaceFirst("/by", "").matches(" *")
                         || input.startsWith("deadline ") && !input.contains(" /by ")) {
                     print("No way broooo please enter a task description and a due date separated by '/by' after 'deadline' command to add a deadline task to the list. \n"
                             + "Try something like this: 'deadline buy Freaky Premium /by in 5 minutes'.");
                     continue;
+
                 } else if (input.startsWith("event ") && input.contains(" /from ") && input.contains(" /to ")
                         && input.replaceFirst("event ", "").replaceFirst(" /from ", "").replaceFirst(" /to ", "").matches(" *")
                         || input.startsWith("event ") && (!input.contains((" /from ")) && !input.contains(" /to "))) {
@@ -147,6 +155,7 @@ public class Freaky {
 
                     String task = input.split("todo ", 2)[1];
                     list.add(new ToDo(task));
+                    storage.save(list);
 
                 // Deadline case
                 } else if (input.startsWith("deadline ") && input.contains(" /by ")) {
@@ -155,6 +164,7 @@ public class Freaky {
                     String task = deadline[0];
                     String time = deadline[1];
                     list.add(new Deadline(task, time));
+                    storage.save(list);
 
                 // Event case
                 } else if (input.startsWith("event ") && input.contains(" /from ") && input.contains(" /to ")){
@@ -164,6 +174,7 @@ public class Freaky {
                     String startTime = event[1].split(" /to ", 2)[0];
                     String endTime = event[1].split(" /to ", 2)[1];
                     list.add(new Event(task, startTime, endTime));
+                    storage.save(list);
                 }
 
                 // Prints out case info
@@ -195,9 +206,12 @@ public class Freaky {
                 // Checks if the task number is valid, returns a message if not
                 if (taskNumber > list.size()) {
                     print("There is only " + String.valueOf(list.size()) + " tasks in your list, please enter a valid task number.");
+                    continue;
                 }
 
                 Task removedTask = list.remove(taskNumber - 1);
+                storage.save(list);
+
                 print("Noted. I've removed this task: \n"
                     + "  " + removedTask.print() + "\n"
                     + "Now you have " + list.size() + " tasks in the list.");
