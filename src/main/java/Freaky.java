@@ -30,7 +30,7 @@ public class Freaky {
 
         // Initialize variables input to store user's previous input, storage to stores data locally  and list to store all user's input
         String input;
-        Storage storage = new Storage("./data/freaky.txt");
+        Storage storage = new Storage(FILE_PATH);
         ArrayList<Task> list = new ArrayList<>(storage.load());
 
         // Detecting user's input
@@ -58,12 +58,13 @@ public class Freaky {
                 System.out.println("----------------------------------------------------- \n");
 
             // Checks user's input of different cases: "mark" and "unmark"
-            } else if (input.startsWith("mark") || input.startsWith(("unmark"))) {
+            } else if (input.startsWith("mark ") || input.startsWith(("unmark "))) {
 
-                if (input.startsWith("mark") && input.replaceFirst("mark", "").matches(" *")) {
+                // Checks if the input after "mark" is empty, returns a message if so
+                if (input.startsWith("mark ") && input.replaceFirst("mark", "").matches(" *")) {
                     print("No way broooo please enter an integer after 'mark' command to mark the corresponding task as done. \n"
                         + "Try something like this: 'mark 2'.");
-                } else if (input.startsWith("unmark") && input.replaceFirst("unmark", "").matches(" *")) {
+                } else if (input.startsWith("unmark ") && input.replaceFirst("unmark", "").matches(" *")) {
                     print("No way broooo please enter an integer after 'unmark' command to mark the corresponding task as undone. \n"
                             + "Try something like this: 'unmark 2'.");
                 }
@@ -129,7 +130,7 @@ public class Freaky {
             // Checks user's input of different cases: "todo", "deadline" and "event"
             } else if (input.startsWith("todo ") || input.startsWith("deadline ") || input.startsWith("event ")) {
 
-                // Checks if the input is valid, returns a message if not
+                // Checks if the input after "todo", "deadline" or "event" is valid, returns a message if not
                 if (input.startsWith("todo ") && input.replaceFirst("todo ", "").matches(" *")) {
                     print("No way broooo please enter a task description after 'todo' command to add a todo task to the list. \n"
                             + "Try something like this: 'todo praise Freaky'.");
