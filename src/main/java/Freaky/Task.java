@@ -1,3 +1,5 @@
+package Freaky;
+
 // The abstract class for tasks
 public abstract class Task {
 

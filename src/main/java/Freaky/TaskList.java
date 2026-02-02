@@ -1,6 +1,9 @@
+package Freaky;
+
 import java.util.ArrayList;
 import java.util.List;
 
+// The task list of Freaky
 public class TaskList {
 
     // ArrayList<Task> tasks storing the tasks

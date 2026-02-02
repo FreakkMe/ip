@@ -1,3 +1,5 @@
+package Freaky;
+
 // The todo task
 public class ToDo extends Task {
 
