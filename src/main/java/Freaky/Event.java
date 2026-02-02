@@ -1,6 +1,7 @@
+package Freaky;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 
 // The event task
 public class Event extends Task {

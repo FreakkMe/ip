@@ -1,3 +1,6 @@
+package Freaky;
+
+// The ui for Freaky
 public class Ui {
 
     // Constructor of the Ui

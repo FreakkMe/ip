@@ -1,6 +1,7 @@
+package Freaky;
+
 import java.time.LocalDateTime;
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.time.format.DateTimeParseException;
 
 // The chatbot Freaky
