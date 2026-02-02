@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +22,8 @@ public class Storage {
     // Print method to print a string with format bar on top and below
     public static void print(String string) {
         System.out.println("----------------------------------------------------- \n"
-                + string + "\n"
-                + "----------------------------------------------------- \n");
+                         + string + "\n"
+                         + "----------------------------------------------------- \n");
     }
 
     // Ensures folder and file exist
@@ -102,31 +104,61 @@ public class Storage {
 
         switch (type) {
 
+            // "todo" case
             case "T":
 
                 ToDo todo = new ToDo(description);
-                if (isDone) todo.markAsDone();
+                if (isDone) {
+                    todo.markAsDone();
+                }
                 return todo;
 
+            // "deadline" case
             case "D":
 
                 String by = parts[3];
-                Deadline deadline = new Deadline(description, by);
-                if (isDone) deadline.markAsDone();
+
+                LocalDateTime time;
+
+                // Checks if the format of the task stored in hard disk is valid, returns a message if not
+                try {
+                    time = Parser.parseLocalDateTime(parts[3]);
+                } catch (DateTimeParseException e) {
+                    throw new IllegalArgumentException("Invalid deadline datetime in file", e);
+                }
+
+                Deadline deadline = new Deadline(description, time);
+                if (isDone) {
+                    deadline.markAsDone();
+                }
                 return deadline;
 
+            // "event" case
             case "E":
 
                 String fromTo = parts[3];
                 String[] times = fromTo.split(" -> ");
-                Event event = new Event(description, times[0], times[1]);
-                if (isDone) event.markAsDone();
+
+                LocalDateTime startTime;
+                LocalDateTime endTime;
+
+                // Checks if the format of the task stored in hard disk is valid, returns a message if not
+                try {
+                    startTime = Parser.parseLocalDateTime(times[0]);
+                    endTime = Parser.parseLocalDateTime(times[1]);
+                } catch (DateTimeParseException e) {
+                    throw new IllegalArgumentException("Invalid event datetime in file", e);
+                }
+
+                Event event = new Event(description, startTime, endTime);
+                if (isDone) {
+                    event.markAsDone();
+                }
                 return event;
 
+            // Format error case
             default:
-
                 throw new IllegalArgumentException("Unknown task type");
-
         }
     }
 }
