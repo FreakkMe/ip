@@ -7,25 +7,31 @@ import java.util.stream.Collectors;
 public class Helper {
 
     // Returns the closest unmarked deadline tasks, maxCount limits number of results
-    public static ArrayList<Task> getClosestDeadlines(List<Task> list, int maxCount) {
-        return (ArrayList<Task>) list.stream()
+    public static TaskList getClosestDeadlines(TaskList taskList, int maxCount) {
+        TaskList result = new TaskList();
+
+        taskList.getTasks().stream()
                 .filter(t -> t instanceof Deadline && t.getStatusIcon().equals(" "))
                 .map(t -> (Deadline) t)
                 .sorted(Comparator.comparing(Deadline::getTime))
                 .limit(maxCount)
-                .map(t -> (Task) t)
-                .collect(Collectors.toList());
+                .forEach(result::add);
+
+        return result;
     }
 
     // Returns the closest unmarked event tasks, maxCount limits number of results
-    public static ArrayList<Task> getClosestEvents(List<Task> list, int maxCount) {
-        return (ArrayList<Task>) list.stream()
+    public static TaskList getClosestEvents(TaskList taskList, int maxCount) {
+        TaskList result = new TaskList();
+
+        taskList.getTasks().stream()
                 .filter(t -> t instanceof Event && t.getStatusIcon().equals(" "))
                 .map(t -> (Event) t)
                 .sorted(Comparator.comparing(Event::getStartTime))
                 .limit(maxCount)
-                .map(t -> (Task) t)
-                .collect(Collectors.toList());
+                .forEach(result::add);
+
+        return result;
     }
 }
 

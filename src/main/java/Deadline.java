@@ -10,9 +10,9 @@ public class Deadline extends Task {
 
 
     // Constructor of the deadline task, initializes with its description and deadline
-    public Deadline(String description, String time) {
+    public Deadline(String description, LocalDateTime time) {
         super(description, TaskType.DEADLINE);
-        this.time = LocalDateTime.parse(time, INPUT_DATE_FORMAT);
+        this.time = time;
     }
 
     @Override

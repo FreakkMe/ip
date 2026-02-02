@@ -11,10 +11,10 @@ public class Event extends Task {
     private static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
     // The constructor of the event task, initializes with its description, start time and end time
-    public Event(String description, String startTime, String endTime) {
+    public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
         super(description, TaskType.EVENT);
-        this.startTime = LocalDateTime.parse(startTime, INPUT_DATE_FORMAT);
-        this.endTime = LocalDateTime.parse(endTime, INPUT_DATE_FORMAT);
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     @Override
