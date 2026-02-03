@@ -20,7 +20,7 @@ public class Event extends Task {
 
     @Override
     public String print() {
-        return "[" + super.getTypeIcon() + "][" + super.getStatusIcon() + "] " + super.description + " (from: " + getStartTime() + " to: " + getEndTime() + ")";
+        return "[" + super.getTypeIcon() + "][" + super.getStatusIcon() + "] " + super.description + " (from: " + this.startTime.format(OUTPUT_DATE_FORMAT) + " to: " + this.endTime.format(OUTPUT_DATE_FORMAT) + ")";
     }
 
     @Override
@@ -28,12 +28,28 @@ public class Event extends Task {
         return "E | " + (super.getStatusIcon().equals("X") ? "1" : "0") + " | " + this.description + " | " + startTime.format(INPUT_DATE_FORMAT) + " -> " + endTime.format(INPUT_DATE_FORMAT);
     }
 
-    public String getStartTime() {
-        return this.startTime.format(OUTPUT_DATE_FORMAT);
+    public LocalDateTime getStartTime() {
+        return this.startTime;
     }
 
-    public String getEndTime() {
-        return this.endTime.format(OUTPUT_DATE_FORMAT);
+    public LocalDateTime getEndTime() {
+        return this.endTime;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        // Checks if they are the same with Task equals
+        if (!super.equals(obj)) {
+            return false;
+
+            // Checks their startTime and endTime if it's the same
+        } else {
+            Event other = (Event) obj;
+
+            return this.startTime.equals((other.startTime)) && this.endTime.equals(other.endTime);
+        }
+
     }
 
 }

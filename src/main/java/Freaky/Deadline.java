@@ -19,7 +19,7 @@ public class Deadline extends Task {
 
     @Override
     public String print() {
-        return "[" + super.getTypeIcon() + "][" + super.getStatusIcon() + "] " + super.description + " (by: " + getTime() + ")";
+        return "[" + super.getTypeIcon() + "][" + super.getStatusIcon() + "] " + super.description + " (by: " + time.format(OUTPUT_DATE_FORMAT) + ")";
     }
 
     @Override
@@ -27,7 +27,24 @@ public class Deadline extends Task {
         return "D | " + (super.getStatusIcon().equals("X") ? "1" : "0") + " | " + this.description + " | " + time.format(INPUT_DATE_FORMAT);
     }
 
-    public String getTime() {
-        return time.format(OUTPUT_DATE_FORMAT);
+    public LocalDateTime getTime() {
+        return time;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        // Checks if they are the same with Task equals
+        if (!super.equals(obj)) {
+            return false;
+
+        // Checks their due date if it's the same
+        } else {
+            Deadline other = (Deadline) obj;
+
+            return this.time.equals((other.time));
+        }
+
+    }
+
 }
