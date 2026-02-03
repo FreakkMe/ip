@@ -99,6 +99,10 @@ public class Freaky {
         } else if (input.startsWith("check")) {
             handleCheck(input);
 
+        // Checks user's input of different cases: "find"
+        } else if (input.startsWith("find")) {
+            handleFind(input);
+
         // It's an unknown command
         } else {
             ui.printUnKnownCommandMessage();
@@ -384,6 +388,30 @@ public class Freaky {
                 ui.printCheckEventList(check, eventList);
                 break;
         }
+    }
+
+    // Runs "find" command
+    private void handleFind(String input) {
+        String[] parts = input.split(" ", 2);
+
+        // Returns a message indicating the format of 'find' command if no keyword is provided
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            ui.printFindFormatMessage();
+            return;
+        }
+
+        String keyword = parts[1].trim();
+        TaskList matches = new TaskList();
+
+        // Search through all tasks
+        for (Task task : tasks.getTasks()) {
+            if (task.description.toLowerCase().contains(keyword.toLowerCase())) {
+                matches.add(task);
+            }
+        }
+
+        ui.printFindSuccessMessage(matches, keyword);
+
     }
 
     // Initializes the bot

@@ -8,9 +8,9 @@ public class Ui {
 
     // Print method to print a string with format bar on top and below
     public static void print(String string) {
-        System.out.println("----------------------------------------------------- \n"
+        System.out.println("----------------------------------------------------------------- \n"
                 + string + "\n"
-                + "----------------------------------------------------- \n");
+                + "----------------------------------------------------------------- \n");
     }
 
     public void printGreetMessage() {
@@ -128,8 +128,31 @@ public class Ui {
             + "'check deadline/event n':  checks n closest deadlines/events");
     }
 
+    public void printFindFormatMessage() {
+        print("Broooo you need to provide a keyword to find tasks! \n" +
+              "Try something like: 'find book'");
+    }
+
+    public void printFindSuccessMessage(TaskList matches, String keyword) {
+        System.out.println("----------------------------------------------------------------- \n");
+
+        if (matches.size() == 0) {
+            System.out.println("No tasks matched your keyword: " + keyword);
+
+        } else {
+            System.out.println("Here are the matching tasks in your list for keyword: '" + keyword + "'");
+
+            for (int i = 0; i < matches.size(); i++) {
+                Task task = matches.get(i);
+                System.out.println((i + 1) + "." + task.print());
+            }
+        }
+
+        System.out.println("----------------------------------------------------------------- \n");
+    }
+
     public void printCheckDeadlineList(int check, TaskList deadlineList) {
-        System.out.println("----------------------------------------------------- \n");
+        System.out.println("----------------------------------------------------------------- \n");
         System.out.println("Checking the coming " + String.valueOf(check) + " deadlines in your list...");
 
         if (check > deadlineList.size()) {
@@ -149,7 +172,7 @@ public class Ui {
             System.out.println(String.valueOf(n + 1) + "." + task.print());
         }
 
-        System.out.println("----------------------------------------------------- \n");
+        System.out.println("----------------------------------------------------------------- \n");
     }
 
     public void printCheckEventList(int check, TaskList eventList) {
@@ -177,13 +200,13 @@ public class Ui {
     }
 
     public void printTaskList(TaskList taskList) {
-        System.out.println("----------------------------------------------------- \n"
+        System.out.println("----------------------------------------------------------------- \n"
                 + "Here are the tasks in your list:");
         for (int n = 0; n < taskList.size(); n++) {
             Task task = taskList.get(n);
             System.out.println(String.valueOf(n + 1) + "." + task.print());
         }
-        System.out.println("----------------------------------------------------- \n");
+        System.out.println("----------------------------------------------------------------- \n");
     }
 
 }
