@@ -4,7 +4,10 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.time.format.DateTimeParseException;
 
-// The chatbot Freaky
+/**
+ * Represents the Freaky chatbot application.
+ * Handles user input, task management, and command execution.
+ */
 public class Freaky {
 
     // Storage which handles the tasks stores in hard disk, tasks the tasks that was stored, ui handles the reply message of the bot
@@ -12,7 +15,12 @@ public class Freaky {
     private TaskList tasks;
     private Ui ui;
 
-    // Constructor of Freaky
+    /**
+     * Constructs a Freaky chatbot with the specified file path for storage.
+     * Attempts to load saved tasks from disk; if failed, starts with an empty task list.
+     *
+     * @param filePath File path to store/load tasks.
+     */
     public Freaky(String filePath) {
 
         // Initializes Freaky with an ui and a storage
@@ -31,7 +39,10 @@ public class Freaky {
 
     }
 
-    // Starts the bot
+    /**
+     * Starts the chatbot interaction loop.
+     * Continuously reads user input, executes commands and displays responses.
+     */
     public void run() {
 
         // Input of the user
@@ -67,7 +78,11 @@ public class Freaky {
 
     }
 
-    // Handles commands of the bot
+    /**
+     * Handles a single user command.
+     *
+     * @param input User's input command string.
+     */
     private void handleCommand(String input) {
 
         // Checks user's input of different cases: "list"
@@ -106,7 +121,14 @@ public class Freaky {
 
     }
 
-    // Runs "mark" or "unmark" command
+    /**
+     * Processes a "mark" or "unmark" command for tasks.
+     * Marks a task as done if "isMark" is true, otherwise marks it as not done.
+     * Performs input validation and prints appropriate UI messages.
+     *
+     * @param input The full input string from the user, e.g. "mark 2" or "unmark 3".
+     * @param isMark True if the command is "mark", false if "unmark".
+     */
     private void handleMark(String input, boolean isMark) {
 
         String[] parts = input.split(" ", 2);
@@ -132,7 +154,7 @@ public class Freaky {
             if (isMark) {
                 ui.printMarkValidNumberMessage();
             } else {
-                ui.printMarkValidNumberMessage();
+                ui.printUnmarkValidNumberMessage();
             }
             return;
         }
@@ -175,7 +197,13 @@ public class Freaky {
         }
     }
 
-    // Runs "delete" command
+    /**
+     * Processes a "delete" command for tasks.
+     * Removes the task at the specified index after validating input.
+     * Prints success or error messages to the UI.
+     *
+     * @param input The full input string from the user, e.g. "delete 2".
+     */
     private void handleDelete(String input) {
 
         String[] parts = input.split(" ", 2);
@@ -211,7 +239,15 @@ public class Freaky {
 
     }
 
-    // Runs "todo", "deadline" or "event" command
+    /**
+     * Processes "todo", "deadline", or "event" commands.
+     * Adds a new task to the task list after validating the input format and dates.
+     * Prints success or error messages to the UI.
+     *
+     * @param input The full input string from the user, e.g.
+     *              "todo read book", "deadline submit report /by 2026-02-01 1800",
+     *              or "event team meeting /from 2026-02-01 1500 /to 2026-02-01 1600".
+     */
     private void handleAddTask(String input) {
 
         // Checks if the input after "todo", "deadline" or "event" is valid, returns a message if not
@@ -288,7 +324,19 @@ public class Freaky {
 
     }
 
-    // Runs "check" command
+    /**
+     * Processes the "check" command to display upcoming deadlines and/or events.
+     * Supports various formats:
+     * - "check"                                : shows 1 closest deadline and 1 closest event
+     * - "check n"                              : shows n closest deadlines and events
+     * - "check deadline" or "check event"      : shows 3 closest of deadlines/events
+     * - "check deadline n" or "check event n"  : shows n closest of deadlines/events
+     *
+     * Prints the tasks to the UI and handles invalid input gracefully.
+     *
+     * @param input The full input string from the user, e.g. "check", "check 2",
+     *              "check deadline", or "check event 5".
+     */
     private void handleCheck(String input) {
 
         // Default checks both task, one per task
@@ -386,7 +434,11 @@ public class Freaky {
         }
     }
 
-    // Initializes the bot
+    /**
+     * Main entry point of the application.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         new Freaky("./data/freaky.txt").run();
     }

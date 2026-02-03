@@ -1,6 +1,9 @@
 package Freaky;
 
-// The abstract class for tasks
+/**
+ * Represents a task, which can be one of type to-do, deadline or event.
+ * A task has a description and a completion status.
+ */
 public abstract class Task {
 
     // String description stores description of the task, boolean isDone stores the status of the task
@@ -21,14 +24,24 @@ public abstract class Task {
         EVENT
     }
 
-    // Constructor of task, default to be marked as undone
+    /**
+     * Creates a task with the specified description.
+     * The completion status of a task is set default to not completed.
+     *
+     * @param description Description of the task.
+     * @param type Type of the task.
+     */
     public Task(String description, TaskType type) {
         this.description = description;
         this.status = Status.NOT_DONE;
         this.type = type;
     }
 
-    // Returns the status of the task
+    /**
+     * Returns the icon representing the completion status of the task.
+     *
+     * @return "X" if the task is done, otherwise " "
+     */
     public String getStatusIcon() {
         return (status.equals(Status.DONE) ? "X" : " "); // mark done task with X
     }
@@ -43,6 +56,11 @@ public abstract class Task {
         this.status = Status.NOT_DONE;
     }
 
+    /**
+     * Returns the icon representing the type of the task.
+     *
+     * @return "T" for to-do, "D" for deadline, "E" for event, "UNKNOWN" if type is unknown (should not happen)
+     */
     public String getTypeIcon() {
 
         if (this.type.equals(TaskType.TODO)) {
@@ -59,10 +77,29 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Returns a string representation of the task for display.
+     * Subclasses must implement this method to show task details.
+     *
+     * @return Formatted string for display
+     */
     public abstract String print();
+
+    /**
+     * Returns a string representation of the task for saving to a file.
+     * Subclasses must implement this method to provide a storage-friendly format.
+     *
+     * @return Formatted string for file storage
+     */
     public abstract String toFileString();
 
-    // equals method to compare two tasks
+    /**
+     * Compares this task with another object for equality.
+     * Two tasks are equal if they are of the same type, have the same description, status and type.
+     *
+     * @param obj the object to compare with
+     * @return true if the tasks are equal, false otherwise
+     */
     @Override
     public boolean equals(Object obj) {
 

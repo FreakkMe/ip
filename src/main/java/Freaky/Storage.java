@@ -11,24 +11,39 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-// Storage class which handles every operation related to load files and save files
+/**
+ * Manages saving and loading tasks to/from disk.
+ */
 public class Storage {
 
     private final String filePath;
 
-    // Constructor of the storage, initializes with the file path to the stored date
+    /**
+     * Constructs a Storage object that manages saving and loading tasks to the specified file path.
+     *
+     * @param filePath The path of the file to store tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    // Print method to print a string with format bar on top and below
+    /**
+     * Prints a message to the console surrounded by separator lines for better readability.
+     *
+     * @param string The message to print.
+     */
     public static void print(String string) {
         System.out.println("----------------------------------------------------- \n"
                          + string + "\n"
                          + "----------------------------------------------------- \n");
     }
 
-    // Ensures folder and file exist
+    /**
+     * Ensures that the file at the specified file path exists.
+     * If the file or its parent directories do not exist, they will be created.
+     *
+     * @throws IOException If an I/O error occurs while creating the file or directories.
+     */
     private void ensureFileExists() throws IOException {
 
         File file = new File(filePath);
@@ -44,7 +59,11 @@ public class Storage {
 
     }
 
-    // Loads tasks from file
+    /**
+     * Loads task list from file.
+     *
+     * @return TaskList loaded from disk.
+     */
     public ArrayList<Task> load() {
 
         ArrayList<Task> tasks = new ArrayList<>();
@@ -76,7 +95,11 @@ public class Storage {
         return tasks;
     }
 
-    // Saves tasks to file
+    /**
+     * Saves task list to file.
+     *
+     * @param tasks List of tasks to save.
+     */
     public void save(List<Task> tasks) {
 
         try {
@@ -95,7 +118,21 @@ public class Storage {
         }
     }
 
-    // Converts one line into a Task object
+    /**
+     * Parses a single line from the storage file and converts it into a Task object.
+     * The expected line format is:
+     * TYPE | STATUS | DESCRIPTION | OPTIONAL
+     *
+     * Where:
+     *     TYPE: "T" for to-dos, "D" for deadlines, "E" for events
+     *     STATUS: "1" if done, "0" if not done
+     *     DESCRIPTION: Task's description
+     *     OPTIONAL: For Deadline, the due date; for Event, the start and end time in "'start time' -> 'end time'" format
+     *
+     * @param line The line from the file representing a task.
+     * @return The Task object corresponding to the line.
+     * @throws IllegalArgumentException If the task type is unknown or if date-time parsing fails.
+     */
     private Task parseLine(String line) {
 
         // Format: TYPE | STATUS | DESCRIPTION | OPTIONAL
