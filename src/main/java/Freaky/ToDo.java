@@ -17,4 +17,5 @@ public class ToDo extends Task {
     public String toFileString() {
         return "T | " + (super.getStatusIcon().equals("X") ? "1" : "0") + " | " + this.description;
     }
+
 }

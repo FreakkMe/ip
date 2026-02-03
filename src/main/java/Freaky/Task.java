@@ -62,4 +62,25 @@ public abstract class Task {
     public abstract String print();
     public abstract String toFileString();
 
+    // equals method to compare two tasks
+    @Override
+    public boolean equals(Object obj) {
+
+        // They are the same reference
+        if (this == obj) {
+            return true;
+
+        // Either obj is null or they are not of the same type
+        } else if (obj == null || this.getClass() != obj.getClass()) {
+            return false;
+
+        // Compares their type, status and description
+        } else {
+            Task other = (Task) obj;
+
+            return this.description.equals(other.description) && this.status.equals(other.status) && this.type.equals(other.type);
+        }
+
+    }
+
 }

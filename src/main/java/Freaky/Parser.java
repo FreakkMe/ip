@@ -21,5 +21,4 @@ public class Parser {
         return LocalDateTime.parse(time, INPUT_DATE_FORMAT);
     }
 
-
 }
