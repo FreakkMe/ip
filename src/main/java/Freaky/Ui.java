@@ -17,9 +17,9 @@ public class Ui {
      * @param string The message to print
      */
     public static void print(String string) {
-        System.out.println("----------------------------------------------------- \n"
+        System.out.println("----------------------------------------------------------------- \n"
                 + string + "\n"
-                + "----------------------------------------------------- \n");
+                + "----------------------------------------------------------------- \n");
     }
 
     /**
@@ -222,6 +222,40 @@ public class Ui {
     }
 
     /**
+     * Prints a message indicating the correct format for the "find" command when the user did not provide a keyword.
+     */
+    public void printFindFormatMessage() {
+        print("Broooo you need to provide a keyword to find tasks! \n" +
+              "Try something like: 'find book'");
+    }
+
+    /**
+     * Prints the result of a "find" command by showing all tasks that match the given keyword in their description.
+     *
+     * If no tasks match, a message indicating no matches is printed.
+     *
+     * @param matches The TaskList containing all tasks that matched the keyword.
+     * @param keyword The keyword used to search the tasks.
+     */
+    public void printFindSuccessMessage(TaskList matches, String keyword) {
+        System.out.println("----------------------------------------------------------------- \n");
+
+        if (matches.size() == 0) {
+            System.out.println("Oh no Freaky can't find tasks that matches your keyword: " + keyword);
+
+        } else {
+            System.out.println("Here are the matching tasks in your list for keyword: '" + keyword + "'");
+
+            for (int i = 0; i < matches.size(); i++) {
+                Task task = matches.get(i);
+                System.out.println((i + 1) + "." + task.print());
+            }
+        }
+
+        System.out.println("----------------------------------------------------------------- \n");
+    }
+
+    /**
      * Prints all tasks in the task list, numbered in order.
      *
      * @param taskList The list of tasks to display
@@ -244,7 +278,7 @@ public class Ui {
      * @param deadlineList The list of deadlines to display
      */
     public void printCheckDeadlineList(int check, TaskList deadlineList) {
-        System.out.println("----------------------------------------------------- \n");
+        System.out.println("----------------------------------------------------------------- \n");
         System.out.println("Checking the coming " + String.valueOf(check) + " deadlines in your list...");
 
         if (check > deadlineList.size()) {
@@ -264,7 +298,7 @@ public class Ui {
             System.out.println(String.valueOf(n + 1) + "." + task.print());
         }
 
-        System.out.println("----------------------------------------------------- \n");
+        System.out.println("----------------------------------------------------------------- \n");
     }
 
     /**
