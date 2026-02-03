@@ -27,6 +27,12 @@ test {
     }
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'Freaky.Freaky'
+    }
+}
+
 application {
     mainClass.set("Freaky.Freaky")
 }
