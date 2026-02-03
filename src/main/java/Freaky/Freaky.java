@@ -368,21 +368,21 @@ public class Freaky {
 
         switch (checkType) {
 
-            // "check" or "check n" case which checks both type of tasks
-            case BOTH:
-                ui.printCheckDeadlineList(check, deadlineList);
-                ui.printCheckEventList(check, eventList);
-                break;
+        // "check" or "check n" case which checks both type of tasks
+        case BOTH:
+            ui.printCheckDeadlineList(check, deadlineList);
+            ui.printCheckEventList(check, eventList);
+            break;
 
-            // "check deadline" or "check deadline n" case which checks deadline tasks
-            case DEADLINE:
-                ui.printCheckDeadlineList(check, deadlineList);
-                break;
+        // "check deadline" or "check deadline n" case which checks deadline tasks
+        case DEADLINE:
+            ui.printCheckDeadlineList(check, deadlineList);
+            break;
 
-            // "check event" or "check event n" case which check event tasks
-            case EVENT:
-                ui.printCheckEventList(check, eventList);
-                break;
+        // "check event" or "check event n" case which check event tasks
+        case EVENT:
+            ui.printCheckEventList(check, eventList);
+            break;
         }
     }
 
