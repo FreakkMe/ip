@@ -1,4 +1,7 @@
-package Freaky;
+package freaky.ui;
+
+import freaky.task.Task;
+import freaky.task.TaskList;
 
 /**
  * Handles all user interactions for the Freaky chatbot.
@@ -261,13 +264,13 @@ public class Ui {
      * @param taskList The list of tasks to display
      */
     public void printTaskList(TaskList taskList) {
-        System.out.println("----------------------------------------------------- \n"
+        System.out.println("----------------------------------------------------------------- \n"
                 + "Here are the tasks in your list:");
         for (int n = 0; n < taskList.size(); n++) {
             Task task = taskList.get(n);
             System.out.println(String.valueOf(n + 1) + "." + task.print());
         }
-        System.out.println("----------------------------------------------------- \n");
+        System.out.println("----------------------------------------------------------------- \n");
     }
 
     /**
@@ -278,7 +281,7 @@ public class Ui {
      * @param deadlineList The list of deadlines to display
      */
     public void printCheckDeadlineList(int check, TaskList deadlineList) {
-        System.out.println("----------------------------------------------------------------- \n");
+        System.out.println("-----------------------------------------------------------------");
         System.out.println("Checking the coming " + String.valueOf(check) + " deadlines in your list...");
 
         if (check > deadlineList.size()) {
@@ -309,7 +312,7 @@ public class Ui {
      * @param eventList The list of events to display
      */
     public void printCheckEventList(int check, TaskList eventList) {
-        System.out.println("----------------------------------------------------- \n");
+        System.out.println("-----------------------------------------------------------------");
         System.out.println("Checking the coming " + String.valueOf(check) + " events in your list...");
 
         if (check > eventList.size()) {
@@ -329,7 +332,7 @@ public class Ui {
             System.out.println(String.valueOf(n + 1) + "." + task.print());
         }
 
-        System.out.println("----------------------------------------------------- \n");
+        System.out.println("----------------------------------------------------------------- \n");
     }
 
 }

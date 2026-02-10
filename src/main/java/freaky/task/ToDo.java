@@ -1,4 +1,4 @@
-package Freaky;
+package freaky.task;
 
 /**
  * Represents a task with no other special information.
@@ -23,7 +23,7 @@ public class ToDo extends Task {
      */
     @Override
     public String print() {
-        return "[" + super.getTypeIcon() + "][" + super.getStatusIcon() + "] " + super.description;
+        return "[" + super.getTypeIcon() + "][" + super.getStatusIcon() + "] " + super.getDescription();
     }
 
     /**
@@ -33,7 +33,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toFileString() {
-        return "T | " + (super.getStatusIcon().equals("X") ? "1" : "0") + " | " + this.description;
+        return "T | " + (super.getStatusIcon().equals("X") ? "1" : "0") + " | " + this.getDescription();
     }
 
 }

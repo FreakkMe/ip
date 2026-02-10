@@ -1,4 +1,4 @@
-package Freaky;
+package freaky.task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 public class TaskList {
 
     // ArrayList<Task> tasks storing the tasks
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     /**
      * Constructs an empty TaskList.
@@ -68,11 +68,11 @@ public class TaskList {
 
     /**
      * Returns the internal list of tasks.
-     * Note: The returned list is the actual internal list, so modifications to it will affect the TaskList.
+     * Note: The returned list is a clone of the internal list, so modifications to it will not affect the TaskList.
      *
      * @return The ArrayList of tasks in this TaskList.
      */
     public ArrayList<Task> getTasks() {
-        return tasks;
+        return (ArrayList<Task>) tasks.clone();
     }
 }

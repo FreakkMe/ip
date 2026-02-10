@@ -1,4 +1,4 @@
-package Freaky;
+package freaky.storage;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,6 +10,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+
+import freaky.parser.Parser;
+import freaky.ui.Ui;
+import freaky.task.Deadline;
+import freaky.task.Event;
+import freaky.task.Task;
+import freaky.task.ToDo;
 
 /**
  * Manages saving and loading tasks to/from disk.
@@ -25,17 +32,6 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
-    }
-
-    /**
-     * Prints a message to the console surrounded by separator lines for better readability.
-     *
-     * @param string The message to print.
-     */
-    public static void print(String string) {
-        System.out.println("----------------------------------------------------- \n"
-                         + string + "\n"
-                         + "----------------------------------------------------- \n");
     }
 
     /**
@@ -81,7 +77,7 @@ public class Storage {
 
                 } catch (Exception e) {
                     // Skips corrupted line if discovered
-                    print("Warning: Skipping corrupted line: " + line);
+                    Ui.print("Warning: Skipping corrupted line: " + line);
                 }
 
             }
@@ -89,7 +85,7 @@ public class Storage {
             reader.close();
 
         } catch (IOException e) {
-            print("Error loading file: " + e.getMessage());
+            Ui.print("Error loading file: " + e.getMessage());
         }
 
         return tasks;
@@ -114,7 +110,7 @@ public class Storage {
             writer.close();
 
         } catch (IOException e) {
-            print("Error saving file: " + e.getMessage());
+            Ui.print("Error saving file: " + e.getMessage());
         }
     }
 

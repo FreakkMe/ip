@@ -1,4 +1,4 @@
-package Freaky;
+package freaky.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
-    private LocalDateTime time;
+    private final LocalDateTime time;
     private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
 
@@ -33,7 +33,7 @@ public class Deadline extends Task {
      */
     @Override
     public String print() {
-        return "[" + super.getTypeIcon() + "][" + super.getStatusIcon() + "] " + super.description + " (by: " + time.format(OUTPUT_DATE_FORMAT) + ")";
+        return "[" + super.getTypeIcon() + "][" + super.getStatusIcon() + "] " + super.getDescription() + " (by: " + time.format(OUTPUT_DATE_FORMAT) + ")";
     }
 
     /**
@@ -43,7 +43,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D | " + (super.getStatusIcon().equals("X") ? "1" : "0") + " | " + this.description + " | " + time.format(INPUT_DATE_FORMAT);
+        return "D | " + (super.getStatusIcon().equals("X") ? "1" : "0") + " | " + this.getDescription() + " | " + time.format(INPUT_DATE_FORMAT);
     }
 
     /**
@@ -71,9 +71,9 @@ public class Deadline extends Task {
 
         // Checks their due date if it's the same
         } else {
-            Deadline other = (Deadline) obj;
+            Deadline otherTask = (Deadline) obj;
 
-            return this.time.equals((other.time));
+            return this.time.equals((otherTask.time));
         }
 
     }

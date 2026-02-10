@@ -1,6 +1,10 @@
-package Freaky;
+package freaky.main;
 
 import java.util.Comparator;
+
+import freaky.task.Deadline;
+import freaky.task.Event;
+import freaky.task.TaskList;
 
 /**
  * Utility class for task-related helper functions.

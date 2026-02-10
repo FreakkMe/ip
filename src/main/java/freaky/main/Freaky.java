@@ -1,8 +1,17 @@
-package Freaky;
+package freaky.main;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.time.format.DateTimeParseException;
+
+import freaky.parser.Parser;
+import freaky.storage.Storage;
+import freaky.ui.Ui;
+import freaky.task.Deadline;
+import freaky.task.Event;
+import freaky.task.Task;
+import freaky.task.TaskList;
+import freaky.task.ToDo;
 
 /**
  * Represents the Freaky chatbot application.
@@ -11,9 +20,9 @@ import java.time.format.DateTimeParseException;
 public class Freaky {
 
     // Storage which handles the tasks stores in hard disk, tasks the tasks that was stored, ui handles the reply message of the bot
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     /**
      * Constructs a Freaky chatbot with the specified file path for storage.
@@ -30,13 +39,11 @@ public class Freaky {
         // Loads the tasks saved on hard disk
         try {
             tasks = new TaskList(storage.load());
-            return;
+
         } catch (Exception e) {
             ui.printCorruptedFilesMessage();
+            tasks = new TaskList();
         }
-
-        tasks = new TaskList();
-
     }
 
     /**
@@ -63,7 +70,6 @@ public class Freaky {
             // Checks user's input of different cases: "" (empty)
             if (input.matches(" *")) {
                 ui.printRepeatMessage();
-                continue;
 
             // Checks user's input of different cases: "bye"
             } else if (input.trim().equals("bye")) {
@@ -254,15 +260,19 @@ public class Freaky {
      */
     private void handleAddTask(String input) {
 
+        boolean hasBy = input.contains(" /by ");
+        boolean hasFrom = input.contains(" /from ");
+        boolean hasTo = input.contains(" /to ");
+
         // Checks if the input after "todo", "deadline" or "event" is valid, returns a message if not
         if (input.trim().equals("todo")) {
             ui.printToDoFormatMessage();
             return;
-        } else if (input.startsWith("deadline") && (!input.contains(" /by ") || input.replaceFirst("deadline ", "").replaceFirst("/by", "").matches(" *"))) {
+        } else if (input.startsWith("deadline") && !hasBy || input.replaceFirst("deadline ", "").replaceFirst(" /by ", "").matches(" *")) {
             ui.printDeadlineFormatMessage();
             return;
-        } else if (input.startsWith("event") && (!input.contains(" /from ") || !input.contains(" /to ") ||
-                input.replaceFirst("event ", "").replaceFirst(" /from ", "").replaceFirst(" /to ", "").matches(" *"))) {
+        } else if (input.startsWith("event") && !hasFrom || !hasTo ||
+                input.replaceFirst("event ", "").replaceFirst(" /from ", "").replaceFirst(" /to ", "").matches(" *")) {
             ui.printEventFormatMessage();
             return;
         }
@@ -274,9 +284,9 @@ public class Freaky {
             task = new ToDo(input.split("todo ", 2)[1]);
 
         // Deadline case
-        } else if (input.startsWith("deadline ") && input.contains(" /by ")
-                && input.replaceFirst("deadline ", "").replaceFirst("/by", "").matches(" *")
-                || input.startsWith("deadline") && !input.contains(" /by ")) {
+        } else if (input.startsWith("deadline ") && hasBy
+                && input.replaceFirst("deadline ", "").replaceFirst(" /by ", "").matches(" *")
+                || input.startsWith("deadline") && !hasBy) {
 
             String[] parts = input.split("deadline ", 2)[1].split(" /by ", 2);
 
@@ -293,9 +303,9 @@ public class Freaky {
             task = new Deadline(parts[0], time);
 
         // Event case
-        } else if (input.startsWith("event ") && input.contains(" /from ") && input.contains(" /to ")
+        } else if (input.startsWith("event ") && hasFrom && hasTo
                 && input.replaceFirst("event ", "").replaceFirst(" /from ", "").replaceFirst(" /to ", "").matches(" *")
-                || input.startsWith("event") && (!input.contains((" /from ")) && !input.contains(" /to "))) {
+                || input.startsWith("event") && (!hasFrom && !hasTo)) {
 
             String[] parts = input.split("event ", 2)[1].split(" /from ", 2);
             String[] times = parts[1].split(" /to ", 2);
@@ -461,7 +471,7 @@ public class Freaky {
 
         // Search through all tasks
         for (Task task : tasks.getTasks()) {
-            if (task.description.toLowerCase().contains(keyword.toLowerCase())) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 matches.add(task);
             }
         }

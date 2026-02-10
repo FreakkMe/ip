@@ -1,4 +1,4 @@
-package Freaky;
+package freaky.task;
 
 /**
  * Represents a task, which can be one of type to-do, deadline or event.
@@ -7,9 +7,9 @@ package Freaky;
 public abstract class Task {
 
     // String description stores description of the task, boolean isDone stores the status of the task
-    protected String description;
+    private final String description;
     private Status status;
-    private TaskType type;
+    private final TaskType type;
 
     // Enumerations of status
     public enum Status {
@@ -35,6 +35,11 @@ public abstract class Task {
         this.description = description;
         this.status = Status.NOT_DONE;
         this.type = type;
+    }
+
+    // Gets the description of the task
+    public String getDescription() {
+        return this.description;
     }
 
     /**
@@ -63,17 +68,16 @@ public abstract class Task {
      */
     public String getTypeIcon() {
 
-        if (this.type.equals(TaskType.TODO)) {
-            return "T";
+        switch (this.type) {
 
-        } else if (this.type.equals(TaskType.DEADLINE)) {
-            return "D";
+        case TODO: return "T";
 
-        } else if (this.type.equals(TaskType.EVENT)) {
-            return "E";
+        case DEADLINE: return "D";
 
-        } else {
-            return "UNKNOWN";
+        case EVENT: return "E";
+
+        default: return "UNKNOWN";
+
         }
     }
 
@@ -113,9 +117,9 @@ public abstract class Task {
 
         // Compares their type, status and description
         } else {
-            Task other = (Task) obj;
+            Task otherTask = (Task) obj;
 
-            return this.description.equals(other.description) && this.status.equals(other.status) && this.type.equals(other.type);
+            return this.description.equals(otherTask.description) && this.status.equals(otherTask.status) && this.type.equals(otherTask.type);
         }
 
     }

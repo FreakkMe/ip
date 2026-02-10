@@ -1,4 +1,4 @@
-package Freaky;
+package freaky.parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
