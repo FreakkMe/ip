@@ -1,6 +1,7 @@
-package freaky;
+package freaky.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
 // Test to TaskList class
@@ -29,4 +30,5 @@ public class TaskListTest {
         // Checks if the remove command functions properly
         assertEquals(0, tasks.size());
     }
+
 }

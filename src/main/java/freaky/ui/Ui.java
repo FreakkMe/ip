@@ -73,19 +73,22 @@ public class Ui {
      * Prints a message indicating the format for 'unmark' command.
      */
     public void printUnmarkFormatMessage() {
-        print("No way broooo please enter an integer after 'unmark' command to mark the corresponding task as undone. \n"
-                + "Try something like this: 'unmark 2'.");
+        print("No way broooo please enter an integer after 'unmark' command to "
+              + "mark the corresponding task as undone. \n"
+            + "Try something like this: 'unmark 2'.");
     }
 
     /**
-     * Prints a message when the 'mark' command is trying to apply on a task number that is greater than the total tasks left.
+     * Prints a message when the 'mark' command is trying to apply on a task number
+     * that is greater than the total tasks left.
      */
     public void printMarkValidNumberMessage() {
         print("Broooo the content following by mark should be a valid task number. T_T");
     }
 
     /**
-     * Prints a message when the 'unmark' command is trying to apply on a task number that is greater than the total tasks left.
+     * Prints a message when the 'unmark' command is trying to apply on a task number
+     * that is greater than the total tasks left.
      */
     public void printUnmarkValidNumberMessage() {
         print("Broooo the content following by mark should be a valid task number. T_T");
@@ -149,16 +152,18 @@ public class Ui {
      * Prints a message indicating the format for 'deadline' command.
      */
     public void printDeadlineFormatMessage() {
-        print("No way broooo please enter a task description and a due date separated by '/by' after 'deadline' command to add a deadline task to the list. \n"
-                + "Try something like this: 'deadline buy Freaky Premium /by 2026-02-01 0000'.");
+        print("No way broooo please enter a task description and a due date separated by '/by' "
+              + "after 'deadline' command to add a deadline task to the list. \n"
+            + "Try something like this: 'deadline buy Freaky Premium /by 2026-02-01 0000'.");
     }
 
     /**
      * Prints a message indicating the format for 'event' command.
      */
     public void printEventFormatMessage() {
-        print("No way broooo please enter a task description, a starting time and an ending time separated by '/from' and '/to' after 'event' command to add an event task to the list. \n"
-                + "Try something like this: 'event chat with Freaky /from 2026-02-01 0000 /to 3026-02-01 0000'.");
+        print("No way broooo please enter a task description, a starting time and an ending time separated by "
+              + "'/from' and '/to' after 'event' command to add an event task to the list. \n"
+            + "Try something like this: 'event chat with Freaky /from 2026-02-01 0000 /to 3026-02-01 0000'.");
     }
 
     /**
@@ -176,16 +181,18 @@ public class Ui {
      * Prints a message when the user is trying to create a deadline task with invalid due time.
      */
     public void printDeadlineDateTimeErrorMessage() {
-        print("Brooooo Freaky isn't smart enough to understand the date, please enter the date in format yyyy-MM-dd HHmm. \n"
-                + "Try something like this: 'deadline buy Freaky Premium /by 2026-02-01 0000'.");
+        print("Brooooo Freaky isn't smart enough to understand the date, please enter the date in "
+              + "format yyyy-MM-dd HHmm. \n"
+            + "Try something like this: 'deadline buy Freaky Premium /by 2026-02-01 0000'.");
     }
 
     /**
      * Prints a message when the user is trying to create an event task with invalid start time or end time.
      */
     public void printEventDateTimeErrorMessage() {
-        print("Brooooo Freaky isn't smart enough to understand the date, please enter the date in format yyyy-MM-dd HHmm. \n"
-                + "Try something like this: 'event chat with Freaky /from 2026-02-01 0000 /to 3026-02-01 0000'.");
+        print("Brooooo Freaky isn't smart enough to understand the date, please enter the date in "
+              + "format yyyy-MM-dd HHmm. \n"
+            + "Try something like this: 'event chat with Freaky /from 2026-02-01 0000 /to 3026-02-01 0000'.");
     }
 
     /**
@@ -209,7 +216,8 @@ public class Ui {
     }
 
     /**
-     * Prints a message when the 'delete' command is trying to apply on a task number that is greater than the total tasks left.
+     * Prints a message when the 'delete' command is trying to apply on a task number
+     * that is greater than the total tasks left.
      */
     public void printDeleteValidNumberMessage() {
         print("Broooo the content following by delete should be a valid task number. T_T");
@@ -220,16 +228,16 @@ public class Ui {
      */
     public void printDeleteSuccessMessage(Task removedTask, TaskList taskList) {
         print("Noted. I've removed this task: \n"
-                + "  " + removedTask.print() + "\n"
-                + "Now you have " + taskList.size() + " tasks in the list.");
+            + "  " + removedTask.print() + "\n"
+            + "Now you have " + taskList.size() + " tasks in the list.");
     }
 
     /**
      * Prints a message indicating the correct format for the "find" command when the user did not provide a keyword.
      */
     public void printFindFormatMessage() {
-        print("Broooo you need to provide a keyword to find tasks! \n" +
-              "Try something like: 'find book'");
+        print("Broooo you need to provide a keyword to find tasks! \n"
+            + "Try something like: 'find book'");
     }
 
     /**
@@ -288,12 +296,14 @@ public class Ui {
             if (deadlineList.size() == 0) {
                 System.out.println("Good news! There is no deadlines left in your list. Congrats!");
             } else {
-                System.out.println("Good news! There is only " + String.valueOf(deadlineList.size()) + " deadlines left in your list. Congrats!");
+                System.out.println("Good news! There is only " + String.valueOf(deadlineList.size())
+                                   + " deadlines left in your list. Congrats!");
             }
         }
 
         if (deadlineList.size() > 0) {
-            System.out.println("Here are the coming " + String.valueOf(deadlineList.size()) + " deadlines in your list:");
+            System.out.println("Here are the coming " + String.valueOf(deadlineList.size())
+                               + " deadlines in your list:");
         }
 
         for (int n = 0; n < deadlineList.size(); n++) {
@@ -319,7 +329,8 @@ public class Ui {
             if (eventList.size() == 0) {
                 System.out.println("Good news! There is no events left in your list. Congrats!");
             } else {
-                System.out.println("Good news! There is only " + String.valueOf(eventList.size()) + " events left in your list. Congrats!");
+                System.out.println("Good news! There is only " + String.valueOf(eventList.size())
+                                   + " events left in your list. Congrats!");
             }
         }
 

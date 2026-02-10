@@ -1,17 +1,17 @@
 package freaky.main;
 
 import java.time.LocalDateTime;
-import java.util.Scanner;
 import java.time.format.DateTimeParseException;
+import java.util.Scanner;
 
 import freaky.parser.Parser;
 import freaky.storage.Storage;
-import freaky.ui.Ui;
 import freaky.task.Deadline;
 import freaky.task.Event;
 import freaky.task.Task;
 import freaky.task.TaskList;
 import freaky.task.ToDo;
+import freaky.ui.Ui;
 
 /**
  * Represents the Freaky chatbot application.
@@ -19,7 +19,8 @@ import freaky.task.ToDo;
  */
 public class Freaky {
 
-    // Storage which handles the tasks stores in hard disk, tasks the tasks that was stored, ui handles the reply message of the bot
+    // Storage which handles the tasks stores in hard disk, tasks the tasks that was stored,
+    // ui handles the reply message of the bot
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
@@ -268,11 +269,13 @@ public class Freaky {
         if (input.trim().equals("todo")) {
             ui.printToDoFormatMessage();
             return;
-        } else if (input.startsWith("deadline") && !hasBy || input.replaceFirst("deadline ", "").replaceFirst(" /by ", "").matches(" *")) {
+        } else if (input.startsWith("deadline") && !hasBy
+                || input.replaceFirst("deadline ", "").replaceFirst(" /by ", "").matches(" *")) {
             ui.printDeadlineFormatMessage();
             return;
-        } else if (input.startsWith("event") && !hasFrom || !hasTo ||
-                input.replaceFirst("event ", "").replaceFirst(" /from ", "").replaceFirst(" /to ", "").matches(" *")) {
+        } else if (input.startsWith("event") && !hasFrom || !hasTo
+                || input.replaceFirst("event ", "").replaceFirst(" /from ", "")
+                .replaceFirst(" /to ", "").matches(" *")) {
             ui.printEventFormatMessage();
             return;
         }
@@ -366,7 +369,7 @@ public class Freaky {
             checkType = CheckType.BOTH;
             check = 1;
 
-         // Can be in "check n" format or "check deadline/event" format
+        // Can be in "check n" format or "check deadline/event" format
         } else if (tokens.length == 2) {
 
             // "check deadline" case
@@ -418,7 +421,8 @@ public class Freaky {
             return;
         }
 
-        // Checks if the number to check is valid (non-positive), no errors even if it exceeds the max number of deadlines/events left
+        // Checks if the number to check is valid (non-positive), no errors even if it
+        // exceeds the max number of deadlines/events left
         if (check <= 0) {
             ui.printNegativeValueError();
             return;
@@ -445,6 +449,9 @@ public class Freaky {
         case EVENT:
             ui.printCheckEventList(check, eventList);
             break;
+
+        // This line shouldn't be reached
+        default: ui.printCheckFormatMessage();
         }
     }
 
@@ -488,4 +495,5 @@ public class Freaky {
     public static void main(String[] args) {
         new Freaky("./data/freaky.txt").run();
     }
+
 }

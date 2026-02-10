@@ -1,8 +1,12 @@
-package freaky;
+package freaky.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Test;
+
 import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.Test;
+
+import freaky.main.Helper;
 
 public class HelperTest {
 
@@ -55,4 +59,5 @@ public class HelperTest {
         assertEquals(event3, events.get(0));
         assertEquals(event1, events.get(1));
     }
+
 }

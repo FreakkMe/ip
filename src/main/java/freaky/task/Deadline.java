@@ -9,10 +9,9 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
-    private final LocalDateTime time;
     private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
-
+    private final LocalDateTime time;
 
     /**
      * Creates a deadline task with the specified description and due time.
@@ -33,7 +32,8 @@ public class Deadline extends Task {
      */
     @Override
     public String print() {
-        return "[" + super.getTypeIcon() + "][" + super.getStatusIcon() + "] " + super.getDescription() + " (by: " + time.format(OUTPUT_DATE_FORMAT) + ")";
+        return "[" + super.getTypeIcon() + "][" + super.getStatusIcon() + "] " + super.getDescription()
+             + " (by: " + time.format(OUTPUT_DATE_FORMAT) + ")";
     }
 
     /**
@@ -43,7 +43,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D | " + (super.getStatusIcon().equals("X") ? "1" : "0") + " | " + this.getDescription() + " | " + time.format(INPUT_DATE_FORMAT);
+        return "D | " + (super.getStatusIcon().equals("X") ? "1" : "0") + " | " + this.getDescription()
+             + " | " + time.format(INPUT_DATE_FORMAT);
     }
 
     /**
@@ -57,10 +58,12 @@ public class Deadline extends Task {
 
     /**
      * Returns true if this deadline is equal to the specified object.
-     * Two deadlines are considered equal if they are both of type Deadline, have the same description, status, type and due time.
+     * Two deadlines are considered equal if they are both of type Deadline,
+     * have the same description, status, type and due time.
      *
      * @param obj the object to compare with this deadline.
-     * @return true if the given object is a Deadline with the same description, status, type, and due time; false otherwise.
+     * @return true if the given object is a Deadline with the same description,
+     *         status, type, and due time; false otherwise.
      */
     @Override
     public boolean equals(Object obj) {

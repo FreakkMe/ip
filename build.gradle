@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -29,17 +30,29 @@ test {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'Freaky.Freaky'
+        attributes 'Main-Class': 'freaky.main.Freaky'
     }
 }
 
 application {
-    mainClass.set("Freaky.Freaky")
+    mainClass.set("freaky.main.Freaky")
 }
 
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
+}
+
+checkstyle {
+    toolVersion = '11.0.0'  // match the version used in your project/course
+    configDirectory = file('config/checkstyle') // optional if not default
+}
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.required.set(false)
+        html.required.set(true) // generates HTML report for easier reading
+    }
 }
 
 run{

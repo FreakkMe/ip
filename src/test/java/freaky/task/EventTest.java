@@ -1,9 +1,11 @@
-package freaky;
+package freaky.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Test;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import org.junit.jupiter.api.Test;
 
 // Test to Event class
 public class EventTest {
@@ -45,4 +47,5 @@ public class EventTest {
         event.markAsDone();
         assertEquals("E | 1 | team meeting | 2026-01-02 0304 -> 2026-02-03 0405", event.toFileString());
     }
+
 }

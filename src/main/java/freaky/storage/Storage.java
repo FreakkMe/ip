@@ -1,22 +1,22 @@
 package freaky.storage;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import freaky.parser.Parser;
-import freaky.ui.Ui;
 import freaky.task.Deadline;
 import freaky.task.Event;
 import freaky.task.Task;
 import freaky.task.ToDo;
+import freaky.ui.Ui;
 
 /**
  * Manages saving and loading tasks to/from disk.
@@ -123,7 +123,8 @@ public class Storage {
      *     TYPE: "T" for to-dos, "D" for deadlines, "E" for events
      *     STATUS: "1" if done, "0" if not done
      *     DESCRIPTION: Task's description
-     *     OPTIONAL: For Deadline, the due date; for Event, the start and end time in "'start time' -> 'end time'" format
+     *     OPTIONAL: For Deadline, the due date; for Event, the start and
+     *     end time in "'start time' -> 'end time'" format
      *
      * @param line The line from the file representing a task.
      * @return The Task object corresponding to the line.
@@ -139,62 +140,63 @@ public class Storage {
 
         switch (type) {
 
-            // "todo" case
-            case "T":
+        // "todo" case
+        case "T":
 
-                ToDo todo = new ToDo(description);
-                if (isDone) {
-                    todo.markAsDone();
-                }
-                return todo;
+            ToDo todo = new ToDo(description);
+            if (isDone) {
+                todo.markAsDone();
+            }
+            return todo;
 
-            // "deadline" case
-            case "D":
+        // "deadline" case
+        case "D":
 
-                String by = parts[3];
+            String by = parts[3];
 
-                LocalDateTime time;
+            LocalDateTime time;
 
-                // Checks if the format of the task stored in hard disk is valid, returns a message if not
-                try {
-                    time = Parser.parseLocalDateTime(parts[3]);
-                } catch (DateTimeParseException e) {
-                    throw new IllegalArgumentException("Invalid deadline datetime in file", e);
-                }
+            // Checks if the format of the task stored in hard disk is valid, returns a message if not
+            try {
+                time = Parser.parseLocalDateTime(parts[3]);
+            } catch (DateTimeParseException e) {
+                throw new IllegalArgumentException("Invalid deadline datetime in file", e);
+            }
 
-                Deadline deadline = new Deadline(description, time);
-                if (isDone) {
-                    deadline.markAsDone();
-                }
-                return deadline;
+            Deadline deadline = new Deadline(description, time);
+            if (isDone) {
+                deadline.markAsDone();
+            }
+            return deadline;
 
-            // "event" case
-            case "E":
+        // "event" case
+        case "E":
 
-                String fromTo = parts[3];
-                String[] times = fromTo.split(" -> ");
+            String fromTo = parts[3];
+            String[] times = fromTo.split(" -> ");
 
-                LocalDateTime startTime;
-                LocalDateTime endTime;
+            LocalDateTime startTime;
+            LocalDateTime endTime;
 
-                // Checks if the format of the task stored in hard disk is valid, returns a message if not
-                try {
-                    startTime = Parser.parseLocalDateTime(times[0]);
-                    endTime = Parser.parseLocalDateTime(times[1]);
-                } catch (DateTimeParseException e) {
-                    throw new IllegalArgumentException("Invalid event datetime in file", e);
-                }
+            // Checks if the format of the task stored in hard disk is valid, returns a message if not
+            try {
+                startTime = Parser.parseLocalDateTime(times[0]);
+                endTime = Parser.parseLocalDateTime(times[1]);
+            } catch (DateTimeParseException e) {
+                throw new IllegalArgumentException("Invalid event datetime in file", e);
+            }
 
-                Event event = new Event(description, startTime, endTime);
-                if (isDone) {
-                    event.markAsDone();
-                }
-                return event;
+            Event event = new Event(description, startTime, endTime);
+            if (isDone) {
+                event.markAsDone();
+            }
+            return event;
 
-            // Format error case
-            default:
-                throw new IllegalArgumentException("Unknown task type");
+        // Format error case
+        default:
+            throw new IllegalArgumentException("Unknown task type");
         }
+
     }
-    
+
 }

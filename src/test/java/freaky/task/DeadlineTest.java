@@ -1,9 +1,11 @@
-package freaky;
+package freaky.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Test;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import org.junit.jupiter.api.Test;
 
 // Test to Deadline class
 public class DeadlineTest {
@@ -50,4 +52,5 @@ public class DeadlineTest {
         deadline.markAsDone();
         assertEquals("D | 1 | submit report | 2026-01-02 0304", deadline.toFileString());
     }
+
 }

@@ -6,18 +6,23 @@ package freaky.task;
  */
 public abstract class Task {
 
-    // String description stores description of the task, boolean isDone stores the status of the task
-    private final String description;
+    // String description stores description of the task, status indicating whether
+    // the task is DONE or NOT_DONE, type including TODO, DEADLINE and EVENT
+    protected final String description;
     private Status status;
     private final TaskType type;
 
-    // Enumerations of status
+    /**
+     * Represents the completion status of a task.
+     */
     public enum Status {
         DONE,
         NOT_DONE
     }
 
-    // Enumerations of task types
+    /**
+     * Represents the type of task.
+     */
     public enum TaskType {
         TODO,
         DEADLINE,
@@ -119,7 +124,8 @@ public abstract class Task {
         } else {
             Task otherTask = (Task) obj;
 
-            return this.description.equals(otherTask.description) && this.status.equals(otherTask.status) && this.type.equals(otherTask.type);
+            return this.description.equals(otherTask.description) && this.status.equals(otherTask.status)
+                    && this.type.equals(otherTask.type);
         }
 
     }

@@ -9,10 +9,10 @@ import java.time.format.DateTimeFormatter;
  */
 public class Event extends Task {
 
-    private final LocalDateTime startTime;
-    private final LocalDateTime endTime;
     private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
 
     /**
      * Creates an event task with the specified description, start time and end time.
@@ -35,7 +35,9 @@ public class Event extends Task {
      */
     @Override
     public String print() {
-        return "[" + super.getTypeIcon() + "][" + super.getStatusIcon() + "] " + super.getDescription() + " (from: " + this.startTime.format(OUTPUT_DATE_FORMAT) + " to: " + this.endTime.format(OUTPUT_DATE_FORMAT) + ")";
+        return "[" + super.getTypeIcon() + "][" + super.getStatusIcon() + "] " + super.getDescription()
+             + " (from: " + this.startTime.format(OUTPUT_DATE_FORMAT)
+             + " to: " + this.endTime.format(OUTPUT_DATE_FORMAT) + ")";
     }
 
     /**
@@ -45,7 +47,8 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + (super.getStatusIcon().equals("X") ? "1" : "0") + " | " + this.getDescription() + " | " + startTime.format(INPUT_DATE_FORMAT) + " -> " + endTime.format(INPUT_DATE_FORMAT);
+        return "E | " + (super.getStatusIcon().equals("X") ? "1" : "0") + " | " + this.getDescription()
+             + " | " + startTime.format(INPUT_DATE_FORMAT) + " -> " + endTime.format(INPUT_DATE_FORMAT);
     }
 
     /**
@@ -68,10 +71,12 @@ public class Event extends Task {
 
     /**
      * Returns true if this event is equal to the specified object.
-     * Two events are considered equal if they are both of type Event, have the same description, status, type, start time and end time.
+     * Two events are considered equal if they are both of type Event, have the
+     * same description, status, type, start time and end time.
      *
      * @param obj the object to compare with this event.
-     * @return true if the given object is a Event with the same description, status, type, start time and end time; false otherwise.
+     * @return true if the given object is a Event with the same description,
+     *         status, type, start time and end time; false otherwise.
      */
     @Override
     public boolean equals(Object obj) {

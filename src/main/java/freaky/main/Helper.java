@@ -39,6 +39,7 @@ public class Helper {
      * @return TaskList of closest events.
      */
     public static TaskList getClosestEvents(TaskList tasks, int maxCount) {
+
         TaskList result = new TaskList();
 
         tasks.getTasks().stream()
@@ -49,6 +50,8 @@ public class Helper {
              .forEach(result::add);
 
         return result;
+
     }
+
 }
 

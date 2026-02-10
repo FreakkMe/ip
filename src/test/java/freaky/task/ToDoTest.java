@@ -1,6 +1,7 @@
-package freaky;
+package freaky.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
 // Test to ToDo class
@@ -43,4 +44,5 @@ public class ToDoTest {
         todo.markAsDone();
         assertEquals("T | 1 | finish homework", todo.toFileString());
     }
+
 }
