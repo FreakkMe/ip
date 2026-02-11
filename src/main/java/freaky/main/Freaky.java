@@ -43,6 +43,16 @@ public class Freaky {
         } catch (Exception e) {
             tasks = new TaskList();
         }
+
+    }
+
+    /**
+     * Greets the user in the start of the chatbot Freaky.
+     *
+     * @return Greet message to be displayed.
+     */
+    public String greet() {
+        return ui.greetMessage();
     }
 
     /**
@@ -430,14 +440,5 @@ public class Freaky {
 
         return ui.findSuccessMessage(matches, keyword);
     }
-
-    //    /**
-    //     * Main entry point of the application.
-    //     *
-    //     * @param args Command line arguments (not used).
-    //     */
-    //    public static void main(String[] args) {
-    //        new Freaky("./data/freaky.txt").run();
-    //            }
 
 }

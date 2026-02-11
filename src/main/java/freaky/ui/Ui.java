@@ -26,7 +26,9 @@ public class Ui {
     }
 
     /**
-     * Prints the greeting message when the chatbot starts.
+     * Returns the greeting message when the chatbot starts.
+     *
+     * @return Greet message to be displayed.
      */
     public String greetMessage() {
         return "Hello! I'm Freaky. \n"
@@ -34,35 +36,45 @@ public class Ui {
     }
 
     /**
-     * Prints the farewell message when the chatbot exits.
+     * Returns the farewell message when the chatbot exits.
+     *
+     * @return Bye message to be displayed.
      */
     public String byeMessage() {
         return "You are leaving? T_T Please don't forget Freaky. Freaky is always here to chat with you.";
     }
 
     /**
-     * Prints a message when the user enters an unknown command.
+     * Returns a message when the user enters an unknown command.
+     *
+     * @return Unknown command message to be displayed.
      */
     public String unKnownCommandMessage() {
         return "Unknown command T_T";
     }
 
     /**
-     * Prints a message when the error is encountered when loading tasks from hard disk.
+     * Returns a message when the error is encountered when loading tasks from hard disk.
+     *
+     * @return Corrupted files message to be displayed.
      */
     public String corruptedFilesMessage() {
         return "Error loading file. Tasks stored on hard disk may be corrupted. T_T";
     }
 
     /**
-     * Prints a message when the user's input is empty.
+     * Returns a message when the user's input is empty.
+     *
+     * @return Repeat message to be displayed.
      */
     public String repeatMessage() {
         return "Freaky didn't catch what you say, can you please enter it again?";
     }
 
     /**
-     * Prints a message indicating the format for 'mark' command.
+     * Returns a message indicating the format for 'mark' command.
+     *
+     * @return Mark format message to be displayed.
      */
     public String markFormatMessage() {
         return "No way broooo please enter an integer after 'mark' command to mark the corresponding task as done. \n"
@@ -70,7 +82,9 @@ public class Ui {
     }
 
     /**
-     * Prints a message indicating the format for 'unmark' command.
+     * Returns a message indicating the format for 'unmark' command.
+     *
+     * @return Unmark format message to be displayed.
      */
     public String unmarkFormatMessage() {
         return "No way broooo please enter an integer after 'unmark' command to "
@@ -79,53 +93,66 @@ public class Ui {
     }
 
     /**
-     * Prints a message when the 'mark' command is trying to apply on a task number
+     * Returns a message when the 'mark' command is trying to apply on a task number
      * that is greater than the total tasks left.
+     *
+     * @return Mark valid number message to be displayed.
      */
     public String markValidNumberMessage() {
         return "Broooo the content following by mark should be a valid task number. T_T";
     }
 
     /**
-     * Prints a message when the 'unmark' command is trying to apply on a task number
+     * Returns a message when the 'unmark' command is trying to apply on a task number
      * that is greater than the total tasks left.
+     *
+     * @return Unmark valid number message to be displayed.
      */
     public String unmarkValidNumberMessage() {
         return "Broooo the content following by mark should be a valid task number. T_T";
     }
 
     /**
-     * Prints an error message when the task number entered by the user is invalid.
+     * Returns an error message when the task number entered by the user is invalid.
      *
      * @param size The number of tasks currently in the list
+     * @return List size error message to be displayed.
      */
     public String listSizeError(int size) {
         return "There is only " + String.valueOf(size) + " tasks in your list, please enter a valid task number.";
     }
 
     /**
-     * Prints a message when user is trying to check a non-positive number of coming deadlines or events.
+     * Returns a message when user is trying to check a non-positive number of coming deadlines or events.
+     *
+     * @return Negative value error message to be displayed.
      */
     public String negativeValueError() {
         return "Broooo how is it possible? A non positive number? (◣_◢)";
     }
 
     /**
-     * Prints a message when user is trying to mark a task which is already marked.
+     * Returns a message when user is trying to mark a task which is already marked.
+     *
+     * @return Already mark message to be displayed.
      */
     public String alreadyMarkMessage() {
         return "The task is already marked as done.";
     }
 
     /**
-     * Prints a message when user is trying to unmark a task which is already not marked.
+     * Returns a message when user is trying to unmark a task which is already not marked.
+     *
+     * @return Already unmark message to be displayed.
      */
     public String alreadyUnmarkMessage() {
         return "The task is still undone brooooo.";
     }
 
     /**
-     * Prints a message when the 'mark' command is successfully run.
+     * Returns a message when the 'mark' command is successfully run.
+     *
+     * @return Mark success message to be displayed.
      */
     public String markSuccessMessage(Task task) {
         return "Nice! I've marked this task as done: \n"
@@ -133,7 +160,9 @@ public class Ui {
     }
 
     /**
-     * Prints a message when the 'unmark' command is successfully run.
+     * Returns a message when the 'unmark' command is successfully run.
+     *
+     * @return Unmark success message to be displayed.
      */
     public String unmarkSuccessMessage(Task task) {
         return "OK, I've marked this task as not done yet: \n"
@@ -141,7 +170,9 @@ public class Ui {
     }
 
     /**
-     * Prints a message indicating the format for 'todo' command.
+     * Returns a message indicating the format for 'to-do' command.
+     *
+     * @return To-do format message to be displayed.
      */
     public String toDoFormatMessage() {
         return "No way broooo please enter a task description after 'todo' command to add a todo task to the list. \n"
@@ -149,7 +180,9 @@ public class Ui {
     }
 
     /**
-     * Prints a message indicating the format for 'deadline' command.
+     * Returns a message indicating the format for 'deadline' command.
+     *
+     * @return Deadline format message to be displayed.
      */
     public String deadlineFormatMessage() {
         return "No way broooo please enter a task description and a due date separated by '/by' "
@@ -158,7 +191,9 @@ public class Ui {
     }
 
     /**
-     * Prints a message indicating the format for 'event' command.
+     * Returns a message indicating the format for 'event' command.
+     *
+     * @return Event format message to be displayed.
      */
     public String eventFormatMessage() {
         return "No way broooo please enter a task description, a starting time and an ending time separated by "
@@ -167,7 +202,9 @@ public class Ui {
     }
 
     /**
-     * Prints a message indicating the format for 'check' command.
+     * Returns a message indicating the format for 'check' command.
+     *
+     * @return Check format message to be displayed.
      */
     public String checkFormatMessage() {
         return "There is a format error broooo. Please try the following format for check command. \n"
@@ -178,7 +215,9 @@ public class Ui {
     }
 
     /**
-     * Prints a message when the user is trying to create a deadline task with invalid due time.
+     * Returns a message when the user is trying to create a deadline task with invalid due time.
+     *
+     * @return Deadline date time error message to be displayed.
      */
     public String deadlineDateTimeErrorMessage() {
         return "Brooooo Freaky isn't smart enough to understand the date, please enter the date in "
@@ -187,7 +226,9 @@ public class Ui {
     }
 
     /**
-     * Prints a message when the user is trying to create an event task with invalid start time or end time.
+     * Returns a message when the user is trying to create an event task with invalid start time or end time.
+     *
+     * @return Event date time error message to be displayed.
      */
     public String eventDateTimeErrorMessage() {
         return "Brooooo Freaky isn't smart enough to understand the date, please enter the date in "
@@ -196,10 +237,11 @@ public class Ui {
     }
 
     /**
-     * Prints a message confirming that a task has been added.
+     * Returns a message confirming that a task has been added.
      *
      * @param task The task that was added
      * @param tasks The list containing all tasks
+     * @return Task added message to be displayed.
      */
     public String taskAddedMessage(Task task, TaskList tasks) {
         return "Got it. I've added this task: \n"
@@ -208,7 +250,9 @@ public class Ui {
     }
 
     /**
-     * Prints a message indicating the format for 'delete' command.
+     * Returns a message indicating the format for 'delete' command.
+     *
+     * @return Delete format message to be displayed.
      */
     public String deleteFormatMessage() {
         return "No way broooo please enter an integer after 'delete' command to delete the corresponding task. \n"
@@ -216,15 +260,19 @@ public class Ui {
     }
 
     /**
-     * Prints a message when the 'delete' command is trying to apply on a task number
+     * Returns a message when the 'delete' command is trying to apply on a task number
      * that is greater than the total tasks left.
+     *
+     * @return Delete valid number message to be displayed.
      */
     public String deleteValidNumberMessage() {
         return "Broooo the content following by delete should be a valid task number. T_T";
     }
 
     /**
-     * Prints a message when the 'delete' command is successfully run.
+     * Returns a message when the 'delete' command is successfully run.
+     *
+     * @return Delete success message to be displayed.
      */
     public String deleteSuccessMessage(Task removedTask, TaskList taskList) {
         return "Noted. I've removed this task: \n"
@@ -233,7 +281,9 @@ public class Ui {
     }
 
     /**
-     * Prints a message indicating the correct format for the "find" command when the user did not provide a keyword.
+     * Returns a message indicating the correct format for the "find" command when the user did not provide a keyword.
+     *
+     * @return Find format message to be displayed.
      */
     public String findFormatMessage() {
         return "Broooo you need to provide a keyword to find tasks! \n"
@@ -241,12 +291,13 @@ public class Ui {
     }
 
     /**
-     * Prints the result of a "find" command by showing all tasks that match the given keyword in their description.
+     * Returns the result of a "find" command by showing all tasks that match the given keyword in their description.
      *
      * If no tasks match, a message indicating no matches is printed.
      *
      * @param matches The TaskList containing all tasks that matched the keyword.
      * @param keyword The keyword used to search the tasks.
+     * @return Find success message to be displayed.
      */
     public String findSuccessMessage(TaskList matches, String keyword) {
 
@@ -268,9 +319,10 @@ public class Ui {
     }
 
     /**
-     * Prints all tasks in the task list, numbered in order.
+     * Returns all tasks in the task list, numbered in order.
      *
      * @param taskList The list of tasks to display
+     * @return Task list to be displayed.
      */
     public String taskList(TaskList taskList) {
 
@@ -286,11 +338,12 @@ public class Ui {
     }
 
     /**
-     * Prints the upcoming deadlines from the provided list, up to a specified count.
+     * Returns the upcoming deadlines from the provided list, up to a specified count.
      * If there are fewer deadlines than requested, a message is shown.
      *
      * @param check The number of upcoming deadlines to check
      * @param deadlineList The list of deadlines to display
+     * @return Checked deadline list to be displayed.
      */
     public String checkDeadlineList(int check, TaskList deadlineList) {
 
@@ -320,11 +373,12 @@ public class Ui {
     }
 
     /**
-     * Prints the upcoming events from the provided list, up to a specified count.
+     * Returns the upcoming events from the provided list, up to a specified count.
      * If there are fewer events than requested, a message is shown.
      *
      * @param check The number of upcoming events to check
      * @param eventList The list of events to display
+     * @return Checked event list to be displayed.
      */
     public String checkEventList(int check, TaskList eventList) {
 

@@ -25,17 +25,32 @@ public class MainWindow extends AnchorPane {
 
     private Freaky freaky;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image freakyImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image freakyImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the UI controller.
+     * <p>
+     * Automatically scrolls the chat window to the bottom whenever new
+     * dialog boxes are added to the dialog container.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Freaky instance */
+    /**
+     * Injects the {@code Freaky} chatbot instance into this controller.
+     * <p>
+     * Displays the chatbot's greeting message in the dialog container
+     * when the UI is first loaded.
+     *
+     * @param freaky the chatbot instance to use
+     */
     public void setFreaky(Freaky freaky) {
         this.freaky = freaky;
+        String greet = freaky.greet();
+        dialogContainer.getChildren().addAll(DialogBox.getFreakyDialog(greet, freakyImage));
     }
 
     /**
@@ -44,12 +59,14 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+
         String input = userInput.getText();
         String response = freaky.handleCommand(input);
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getFreakyDialog(response, freakyImage)
-        );
+                DialogBox.getFreakyDialog(response, freakyImage));
+
         userInput.clear();
     }
 }
