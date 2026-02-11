@@ -140,7 +140,7 @@ public class Storage {
 
         switch (type) {
 
-        // "todo" case
+        // "to-do" case
         case "T":
 
             ToDo todo = new ToDo(description);

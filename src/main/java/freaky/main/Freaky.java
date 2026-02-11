@@ -2,7 +2,6 @@ package freaky.main;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 import freaky.parser.Parser;
 import freaky.storage.Storage;
@@ -42,94 +41,58 @@ public class Freaky {
             tasks = new TaskList(storage.load());
 
         } catch (Exception e) {
-            ui.printCorruptedFilesMessage();
             tasks = new TaskList();
         }
     }
 
     /**
-     * Starts the chatbot interaction loop.
-     * Continuously reads user input, executes commands and displays responses.
-     */
-    public void run() {
-
-        // Input of the user
-        Scanner scanner = new Scanner(System.in);
-
-        // Initialize variables input to store user's previous input
-        String input;
-
-        // Chatbot starts here
-        ui.printGreetMessage();
-
-        // Detecting user's input
-        while (true) {
-
-            // Stores user's input to input
-            input = scanner.nextLine().trim();
-
-            // Checks user's input of different cases: "" (empty)
-            if (input.matches(" *")) {
-                ui.printRepeatMessage();
-
-            // Checks user's input of different cases: "bye"
-            } else if (input.trim().equals("bye")) {
-                ui.printByeMessage();
-                break;
-
-            // Checks user's input of different cases: command case
-            } else {
-                handleCommand(input);
-            }
-        }
-
-    }
-
-    /**
-     * Handles a single user command.
+     * Handles a single user command and returns the response message.
      *
      * @param input User's input command string.
+     * @return Response message to be displayed.
      */
-    private void handleCommand(String input) {
+    public String handleCommand(String input) {
+
+        // Checks user's input of different cases: "" (empty)
+        if (input.trim().isEmpty()) {
+            return ui.repeatMessage();
+
+        // Checks user's input of different cases: "bye"
+        } else if (input.trim().equalsIgnoreCase("bye")) {
+            return ui.byeMessage();
 
         // Checks user's input of different cases: "list"
-        if (input.trim().equals("list")) {
-            ui.printTaskList(tasks);
-            return;
+        } else if (input.trim().equals("list")) {
+            return ui.taskList(tasks);
 
         // Checks user's input of different cases: "mark"
         } else if (input.startsWith("mark")) {
-            handleMark(input, true);
-            return;
+            return handleMark(input, true);
 
         // Checks user's input of different cases: "unmark"
         } else if (input.startsWith("unmark")) {
-            handleMark(input, false);
-            return;
+            return handleMark(input, false);
 
         // Checks user's input of different cases: "delete"
         } else if (input.startsWith("delete")) {
-            handleDelete(input);
-            return;
+            return handleDelete(input);
 
-        // Checks user's input of different cases: "todo", "deadline" and "event"
+        // Checks user's input of different cases: "to-do", "deadline" and "event"
         } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
-            handleAddTask(input);
-            return;
+            return handleAddTask(input);
 
         // Checks user's input of different cases: "check"
         } else if (input.startsWith("check")) {
-            handleCheck(input);
+            return handleCheck(input);
 
         // Checks user's input of different cases: "find"
         } else if (input.startsWith("find")) {
-            handleFind(input);
+            return handleFind(input);
 
         // It's an unknown command
         } else {
-            ui.printUnKnownCommandMessage();
+            return ui.unKnownCommandMessage();
         }
-
     }
 
     /**
@@ -139,19 +102,15 @@ public class Freaky {
      *
      * @param input The full input string from the user, e.g. "mark 2" or "unmark 3".
      * @param isMark True if the command is "mark", false if "unmark".
+     * @return String of the mark command replied by Freaky.
      */
-    private void handleMark(String input, boolean isMark) {
+    private String handleMark(String input, boolean isMark) {
 
         String[] parts = input.split(" ", 2);
 
         // Checks if the input after "mark" is empty, returns a message if so
         if (parts.length < 2 || parts[1].matches(" *")) {
-            if (isMark) {
-                ui.printMarkFormatMessage();
-            } else {
-                ui.printUnmarkFormatMessage();
-            }
-            return;
+            return isMark ? ui.markFormatMessage() : ui.unmarkFormatMessage();
         }
 
         int taskNumber;
@@ -162,18 +121,14 @@ public class Freaky {
 
         // Checks if the string after "mark " is an integer, returns a message if not
         } catch (NumberFormatException e) {
-            if (isMark) {
-                ui.printMarkValidNumberMessage();
-            } else {
-                ui.printUnmarkValidNumberMessage();
-            }
-            return;
+            return isMark ? ui.markValidNumberMessage() : ui.unmarkValidNumberMessage();
         }
 
         // Checks if the task number is valid, returns a message if not
-        if (taskNumber < 0 || taskNumber >= tasks.size()) {
-            ui.printListSizeError(tasks.size());
-            return;
+        if (taskNumber < 0) {
+            return ui.negativeValueError();
+        } else if (taskNumber >= tasks.size()) {
+            return ui.listSizeError(tasks.size());
         }
 
         Task task = tasks.get(taskNumber);
@@ -183,13 +138,13 @@ public class Freaky {
 
             // Checks if the task is already marked as done, returns a message if so
             if (task.getStatusIcon().equals("X")) {
-                ui.printAlreadyMarkMessage();
+                return ui.alreadyMarkMessage();
 
             // Marks the task as done
             } else {
                 task.markAsDone();
                 storage.save(tasks.getTasks());
-                ui.printMarkSuccessMessage(task);
+                return ui.markSuccessMessage(task);
             }
 
         // Unmark case
@@ -197,13 +152,13 @@ public class Freaky {
 
             // Checks if the task is already marked as undone, returns a message if so
             if (task.getStatusIcon().equals(" ")) {
-                ui.printAlreadyUnmarkMessage();
+                return ui.alreadyUnmarkMessage();
 
             // Unmarks the task from done
             } else {
                 task.markAsUndone();
                 storage.save(tasks.getTasks());
-                ui.printUnmarkSuccessMessage(task);
+                return ui.unmarkSuccessMessage(task);
             }
         }
     }
@@ -214,15 +169,15 @@ public class Freaky {
      * Prints success or error messages to the UI.
      *
      * @param input The full input string from the user, e.g. "delete 2".
+     * @return String of the delete command replied by Freaky.
      */
-    private void handleDelete(String input) {
+    private String handleDelete(String input) {
 
         String[] parts = input.split(" ", 2);
 
         // Checks if the input is valid, returns a message if not
         if (parts.length < 2 || parts[1].matches(" *")) {
-            ui.printDeleteFormatMessage();
-            return;
+            return ui.deleteFormatMessage();
         }
 
         int taskNumber;
@@ -233,21 +188,21 @@ public class Freaky {
 
         // Checks if the string after "delete " is an integer, returns a message if not
         } catch (NumberFormatException e) {
-            ui.printDeleteValidNumberMessage();
-            return;
+            return ui.deleteValidNumberMessage();
         }
 
         // Checks if the task number is valid, returns a message if not
-        if (taskNumber < 0 || taskNumber >= tasks.size()) {
-            ui.printListSizeError(tasks.size());
-            return;
+        if (taskNumber < 0) {
+            return ui.negativeValueError();
+        } else if (taskNumber >= tasks.size()) {
+            return ui.listSizeError(tasks.size());
         }
 
         Task removed = tasks.get(taskNumber);
         tasks.remove(taskNumber);
         storage.save(tasks.getTasks());
-        ui.printDeleteSuccessMessage(removed, tasks);
 
+        return ui.deleteSuccessMessage(removed, tasks);
     }
 
     /**
@@ -258,39 +213,34 @@ public class Freaky {
      * @param input The full input string from the user, e.g.
      *              "todo read book", "deadline submit report /by 2026-02-01 1800",
      *              or "event team meeting /from 2026-02-01 1500 /to 2026-02-01 1600".
+     * @return String of the to-do/deadline/event command replied by Freaky.
      */
-    private void handleAddTask(String input) {
+    private String handleAddTask(String input) {
 
         boolean hasBy = input.contains(" /by ");
         boolean hasFrom = input.contains(" /from ");
         boolean hasTo = input.contains(" /to ");
 
-        // Checks if the input after "todo", "deadline" or "event" is valid, returns a message if not
+        // Checks if the input after "to-do", "deadline" or "event" is valid, returns a message if not
         if (input.trim().equals("todo")) {
-            ui.printToDoFormatMessage();
-            return;
+            return ui.toDoFormatMessage();
         } else if (input.startsWith("deadline") && !hasBy
                 || input.replaceFirst("deadline ", "").replaceFirst(" /by ", "").matches(" *")) {
-            ui.printDeadlineFormatMessage();
-            return;
-        } else if (input.startsWith("event") && !hasFrom || !hasTo
+            return ui.deadlineFormatMessage();
+        } else if (input.startsWith("event") && (!hasFrom || !hasTo)
                 || input.replaceFirst("event ", "").replaceFirst(" /from ", "")
                 .replaceFirst(" /to ", "").matches(" *")) {
-            ui.printEventFormatMessage();
-            return;
+            return ui.eventFormatMessage();
         }
 
         Task task;
 
-        // To do case
+        // To-do case
         if (input.startsWith("todo ")) {
             task = new ToDo(input.split("todo ", 2)[1]);
 
         // Deadline case
-        } else if (input.startsWith("deadline ") && hasBy
-                && input.replaceFirst("deadline ", "").replaceFirst(" /by ", "").matches(" *")
-                || input.startsWith("deadline") && !hasBy) {
-
+        } else if (input.startsWith("deadline ")) {
             String[] parts = input.split("deadline ", 2)[1].split(" /by ", 2);
 
             LocalDateTime time;
@@ -299,17 +249,13 @@ public class Freaky {
             try {
                 time = Parser.parseLocalDateTime(parts[1].trim());
             } catch (DateTimeParseException e) {
-                ui.printDeadlineDateTimeErrorMessage();
-                return;
+                return ui.deadlineDateTimeErrorMessage();
             }
 
             task = new Deadline(parts[0], time);
 
         // Event case
-        } else if (input.startsWith("event ") && hasFrom && hasTo
-                && input.replaceFirst("event ", "").replaceFirst(" /from ", "").replaceFirst(" /to ", "").matches(" *")
-                || input.startsWith("event") && (!hasFrom && !hasTo)) {
-
+        } else if (input.startsWith("event ")) {
             String[] parts = input.split("event ", 2)[1].split(" /from ", 2);
             String[] times = parts[1].split(" /to ", 2);
 
@@ -321,24 +267,21 @@ public class Freaky {
                 startTime = Parser.parseLocalDateTime(times[0].trim());
                 endTime = Parser.parseLocalDateTime(times[1].trim());
             } catch (DateTimeParseException e) {
-                ui.printEventDateTimeErrorMessage();
-                return;
+                return ui.eventDateTimeErrorMessage();
             }
 
             task = new Event(parts[0], startTime, endTime);
 
         // Command invalid case
         } else {
-            ui.printDeadlineDateTimeErrorMessage();
-            return;
+            return ui.eventDateTimeErrorMessage();
         }
 
         tasks.add(task);
         storage.save(tasks.getTasks());
 
-        // Prints out task info
-        ui.printTaskAddedMessage(task, tasks);
-
+        // Returns task info
+        return ui.taskAddedMessage(task, tasks);
     }
 
     /**
@@ -353,8 +296,9 @@ public class Freaky {
      *
      * @param input The full input string from the user, e.g. "check", "check 2",
      *              "check deadline", or "check event 5".
+     * @return String of the check command replied by Freaky.
      */
-    private void handleCheck(String input) {
+    private String handleCheck(String input) {
 
         // Default checks both task, one per task
         enum CheckType { BOTH, DEADLINE, EVENT }
@@ -373,12 +317,12 @@ public class Freaky {
         } else if (tokens.length == 2) {
 
             // "check deadline" case
-            if (tokens[1].trim().equals("deadline")) {
+            if (tokens[1].equals("deadline")) {
                 checkType = CheckType.DEADLINE;
                 check = 3;
 
             // "check event" case
-            } else if (tokens[1].trim().equals("event")) {
+            } else if (tokens[1].equals("event")) {
                 checkType = CheckType.EVENT;
                 check = 3;
 
@@ -386,73 +330,74 @@ public class Freaky {
             } else {
                 try {
                     checkType = CheckType.BOTH;
-                    check = Parser.parseInteger(tokens[1].trim());
+                    check = Parser.parseInteger(tokens[1]);
                 } catch (NumberFormatException e) {
-                    ui.printCheckFormatMessage();
-                    return;
+                    return ui.checkFormatMessage();
                 }
             }
 
         // In "check deadline/event n" format
         } else if (tokens.length == 3) {
 
-            if (tokens[1].trim().equals("deadline")) {
+            if (tokens[1].equals("deadline")) {
                 checkType = CheckType.DEADLINE;
 
-            } else if (tokens[1].trim().equals("event")) {
+            } else if (tokens[1].equals("event")) {
                 checkType = CheckType.EVENT;
 
             } else {
-                ui.printCheckFormatMessage();
-                return;
+                return ui.checkFormatMessage();
             }
 
             // Checks if the input after "check deadline/event ", returns a message if it is invalid
             try {
-                check = Parser.parseInteger(tokens[2].trim());
+                check = Parser.parseInteger(tokens[2]);
             } catch (NumberFormatException e) {
-                ui.printCheckFormatMessage();
-                return;
+                return ui.checkFormatMessage();
             }
 
         // Incorrect format
         } else {
-            ui.printCheckFormatMessage();
-            return;
+            return ui.checkFormatMessage();
         }
 
         // Checks if the number to check is valid (non-positive), no errors even if it
         // exceeds the max number of deadlines/events left
         if (check <= 0) {
-            ui.printNegativeValueError();
-            return;
+            return ui.negativeValueError();
         }
 
         // Extracts deadlines and events that weren't marked as done before
         TaskList deadlineList = Helper.getClosestDeadlines(tasks, check);
         TaskList eventList = Helper.getClosestEvents(tasks, check);
 
+        StringBuilder response = new StringBuilder();
+
         switch (checkType) {
 
         // "check" or "check n" case which checks both type of tasks
         case BOTH:
-            ui.printCheckDeadlineList(check, deadlineList);
-            ui.printCheckEventList(check, eventList);
+            response.append(ui.checkDeadlineList(check, deadlineList))
+                    .append("\n")
+                    .append(ui.checkEventList(check, eventList));
             break;
 
         // "check deadline" or "check deadline n" case which checks deadline tasks
         case DEADLINE:
-            ui.printCheckDeadlineList(check, deadlineList);
+            response.append(ui.checkDeadlineList(check, deadlineList));
             break;
 
         // "check event" or "check event n" case which check event tasks
         case EVENT:
-            ui.printCheckEventList(check, eventList);
+            response.append(ui.checkEventList(check, eventList));
             break;
 
         // This line shouldn't be reached
-        default: ui.printCheckFormatMessage();
+        default:
+            return ui.checkFormatMessage();
         }
+
+        return response.toString().trim();
     }
 
     /**
@@ -463,14 +408,14 @@ public class Freaky {
      *
      * @param input The full user input string starting with "find" followed by the keyword.
      *              Example: "find book".
+     * @return String of the find command replied by Freaky.
      */
-    private void handleFind(String input) {
+    private String handleFind(String input) {
         String[] parts = input.split(" ", 2);
 
         // Returns a message indicating the format of 'find' command if no keyword is provided
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            ui.printFindFormatMessage();
-            return;
+            return ui.findFormatMessage();
         }
 
         String keyword = parts[1].trim();
@@ -483,17 +428,16 @@ public class Freaky {
             }
         }
 
-        ui.printFindSuccessMessage(matches, keyword);
-
+        return ui.findSuccessMessage(matches, keyword);
     }
 
-    /**
-     * Main entry point of the application.
-     *
-     * @param args Command line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new Freaky("./data/freaky.txt").run();
-    }
+    //    /**
+    //     * Main entry point of the application.
+    //     *
+    //     * @param args Command line arguments (not used).
+    //     */
+    //    public static void main(String[] args) {
+    //        new Freaky("./data/freaky.txt").run();
+    //            }
 
 }
