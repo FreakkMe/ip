@@ -134,7 +134,27 @@ public class Freaky {
             return isMark ? ui.markValidNumberMessage() : ui.unmarkValidNumberMessage();
         }
 
-        // Checks if the task number is valid, returns a message if not
+        // Assertions to ensure task number is within the bound
+        try {
+            assert taskNumber >= 0 : "Invalid negative task number";
+            assert taskNumber < tasks.size() : "Task number out of bound";
+
+        } catch (AssertionError e) {
+            // Negative task number
+            if (e.getMessage().equals("Invalid negative task number")) {
+                return ui.negativeValueError();
+
+            // Task number greater than total task
+            } else if (e.getMessage().equals("Task number out of bound")) {
+                return ui.listSizeError(tasks.size());
+
+            // Shouldn't reach here
+            } else {
+                return ui.unKnownCommandMessage();
+            }
+        }
+
+        // Checks if the task number is valid, returns a message if not (as a backup if assertion is not enable)
         if (taskNumber < 0) {
             return ui.negativeValueError();
         } else if (taskNumber >= tasks.size()) {
@@ -201,7 +221,27 @@ public class Freaky {
             return ui.deleteValidNumberMessage();
         }
 
-        // Checks if the task number is valid, returns a message if not
+        // Assertions to ensure task number is within the bound
+        try {
+            assert taskNumber >= 0 : "Invalid negative task number";
+            assert taskNumber < tasks.size() : "Task number out of bound";
+
+        } catch (AssertionError e) {
+            // Negative task number
+            if (e.getMessage().equals("Invalid negative task number")) {
+                return ui.negativeValueError();
+
+                // Task number greater than total task
+            } else if (e.getMessage().equals("Task number out of bound")) {
+                return ui.listSizeError(tasks.size());
+
+                // Shouldn't reach here
+            } else {
+                return ui.unKnownCommandMessage();
+            }
+        }
+
+        // Checks if the task number is valid, returns a message if not (as a backup if assertion is not enable)
         if (taskNumber < 0) {
             return ui.negativeValueError();
         } else if (taskNumber >= tasks.size()) {
@@ -216,12 +256,12 @@ public class Freaky {
     }
 
     /**
-     * Processes "todo", "deadline", or "event" commands.
+     * Processes "to-do", "deadline", or "event" commands.
      * Adds a new task to the task list after validating the input format and dates.
      * Prints success or error messages to the UI.
      *
      * @param input The full input string from the user, e.g.
-     *              "todo read book", "deadline submit report /by 2026-02-01 1800",
+     *              "to-do read book", "deadline submit report /by 2026-02-01 1800",
      *              or "event team meeting /from 2026-02-01 1500 /to 2026-02-01 1600".
      * @return String of the to-do/deadline/event command replied by Freaky.
      */
