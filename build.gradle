@@ -49,7 +49,7 @@ test {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'freaky.main.Freaky'
+        attributes 'Main-Class': 'freaky.main.Launcher'
     }
 }
 
