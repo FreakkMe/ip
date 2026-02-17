@@ -25,8 +25,8 @@ public class MainWindow extends AnchorPane {
 
     private Freaky freaky;
 
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image freakyImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private final Image freakyImage = new Image(this.getClass().getResourceAsStream("/images/Freaky.png"));
 
     /**
      * Initializes the UI controller.
