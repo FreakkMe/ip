@@ -16,6 +16,15 @@ public class Main extends Application {
 
     private Freaky freaky = new Freaky("./data/freaky.txt");
 
+    /**
+     * Starts the JavaFX application and initializes the main GUI window.
+     * This method loads the FXML layout for the main window, sets up the scene,
+     * configures the minimum window size, injects the Freaky chatbot instance
+     * into the controller, and displays the stage.
+     *
+     * @param stage The primary stage provided by the JavaFX runtime on which
+     *              the application scene is set.
+     */
     @Override
     public void start(Stage stage) {
         try {

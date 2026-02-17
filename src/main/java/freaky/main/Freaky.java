@@ -106,6 +106,26 @@ public class Freaky {
     }
 
     /**
+     * Checks whether a given task number is valid within the current task list.
+     * This method validates that the task number is non-negative and does not exceed
+     * the total number of tasks. It returns a user-friendly message if the task number
+     * is invalid, or a sentinel value if it is valid.
+     *
+     * @param taskNumber The index of the task to validate (0-based).
+     * @return A string containing an appropriate error message if the task number
+     *         is invalid, or "NO_PROBLEM" if the task number is valid.
+     */
+    public String checkValidTaskNumber(int taskNumber) {
+        if (taskNumber < 0) {
+            return ui.negativeValueError();
+        } else if (taskNumber >= tasks.size()) {
+            return ui.listSizeError(tasks.size());
+        } else {
+            return "NO_PROBLEM";
+        }
+    }
+
+    /**
      * Processes a "mark" or "unmark" command for tasks.
      * Marks a task as done if "isMark" is true, otherwise marks it as not done.
      * Performs input validation and prints appropriate UI messages.
@@ -135,10 +155,10 @@ public class Freaky {
         }
 
         // Checks if the task number is valid, returns a message if not
-        if (taskNumber < 0) {
-            return ui.negativeValueError();
-        } else if (taskNumber >= tasks.size()) {
-            return ui.listSizeError(tasks.size());
+        String checkResult = checkValidTaskNumber(taskNumber);
+
+        if (!checkResult.equals("NO_PROBLEM")) {
+            return checkResult;
         }
 
         Task task = tasks.get(taskNumber);
@@ -202,10 +222,10 @@ public class Freaky {
         }
 
         // Checks if the task number is valid, returns a message if not
-        if (taskNumber < 0) {
-            return ui.negativeValueError();
-        } else if (taskNumber >= tasks.size()) {
-            return ui.listSizeError(tasks.size());
+        String checkResult = checkValidTaskNumber(taskNumber);
+
+        if (!checkResult.equals("NO_PROBLEM")) {
+            return checkResult;
         }
 
         Task removed = tasks.get(taskNumber);
@@ -216,12 +236,12 @@ public class Freaky {
     }
 
     /**
-     * Processes "todo", "deadline", or "event" commands.
+     * Processes "to-do", "deadline", or "event" commands.
      * Adds a new task to the task list after validating the input format and dates.
      * Prints success or error messages to the UI.
      *
      * @param input The full input string from the user, e.g.
-     *              "todo read book", "deadline submit report /by 2026-02-01 1800",
+     *              "to-do read book", "deadline submit report /by 2026-02-01 1800",
      *              or "event team meeting /from 2026-02-01 1500 /to 2026-02-01 1600".
      * @return String of the to-do/deadline/event command replied by Freaky.
      */
@@ -301,7 +321,6 @@ public class Freaky {
      * - "check n"                              : shows n closest deadlines and events
      * - "check deadline" or "check event"      : shows 3 closest of deadlines/events
      * - "check deadline n" or "check event n"  : shows n closest of deadlines/events
-     *
      * Prints the tasks to the UI and handles invalid input gracefully.
      *
      * @param input The full input string from the user, e.g. "check", "check 2",
@@ -413,7 +432,6 @@ public class Freaky {
     /**
      * Processes the "find" command by searching for tasks that contain a given keyword in their description.
      * If no keyword is provided, prints a message indicating the correct format of the command.
-     *
      * The search is case-insensitive and matches any part of the task description.
      *
      * @param input The full user input string starting with "find" followed by the keyword.
