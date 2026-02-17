@@ -116,6 +116,28 @@ public class Freaky {
      *         is invalid, or "NO_PROBLEM" if the task number is valid.
      */
     public String checkValidTaskNumber(int taskNumber) {
+      
+        // Assertions to ensure task number is within the bound
+        try {
+            assert taskNumber >= 0 : "Invalid negative task number";
+            assert taskNumber < tasks.size() : "Task number out of bound";
+
+        } catch (AssertionError e) {
+            // Negative task number
+            if (e.getMessage().equals("Invalid negative task number")) {
+                return ui.negativeValueError();
+
+            // Task number greater than total task
+            } else if (e.getMessage().equals("Task number out of bound")) {
+                return ui.listSizeError(tasks.size());
+
+            // Shouldn't reach here
+            } else {
+                return ui.unKnownCommandMessage();
+            }
+        }
+      
+        // Checks if the task number is valid, returns a message if not (as a backup if assertion is not enable)
         if (taskNumber < 0) {
             return ui.negativeValueError();
         } else if (taskNumber >= tasks.size()) {
