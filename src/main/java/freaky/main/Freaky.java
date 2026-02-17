@@ -116,7 +116,7 @@ public class Freaky {
      *         is invalid, or "NO_PROBLEM" if the task number is valid.
      */
     public String checkValidTaskNumber(int taskNumber) {
-      
+
         // Assertions to ensure task number is within the bound
         try {
             assert taskNumber >= 0 : "Invalid negative task number";
