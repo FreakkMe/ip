@@ -26,6 +26,21 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructs a {@code DialogBox} with the specified text and display image.
+     *
+     * This constructor loads the corresponding FXML layout file
+     * ({@code DialogBox.fxml}), sets this instance as both the root node and
+     * controller, and initializes the UI components.
+     *
+     * The {@code Label} is configured to automatically resize based on its
+     * content so that the full message is displayed without being clipped or
+     * dynamically resized later. The associated {@code ImageView} is set to
+     * display the provided image.
+     *
+     * @param text the message text to be displayed in the dialog box
+     * @param img  the image representing the speaker (e.g., user or Freaky)
+     */
     private DialogBox(String text, Image img) {
 
         try {

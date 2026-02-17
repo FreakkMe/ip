@@ -25,8 +25,8 @@ public class Main extends Application {
 
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            stage.setMinHeight(300);
-            stage.setMinWidth(400);
+            stage.setMinHeight(600);
+            stage.setMinWidth(600);
 
             fxmlLoader.<MainWindow>getController().setFreaky(freaky); // inject the Freaky instance
             stage.show();
