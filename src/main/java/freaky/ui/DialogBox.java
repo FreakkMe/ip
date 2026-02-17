@@ -83,9 +83,9 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getFreakyDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
-        db.flip();
-        return db;
+        var dialogBox = new DialogBox(text, img);
+        dialogBox.flip();
+        return dialogBox;
     }
 
 }
