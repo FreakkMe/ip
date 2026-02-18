@@ -292,7 +292,7 @@ Broooo how is it possible? A non positive number? (◣_◢)
 Freaky includes:
 - Scrollable chat window
 - Auto-resizing message bubbles
-- Window minimum size: 600 × 600
+- Window minimum size: 650 × 650
 - Resizable chat window
 - Profile images for user and chatbot
 
