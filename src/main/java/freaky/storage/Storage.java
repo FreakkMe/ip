@@ -77,6 +77,7 @@ public class Storage {
 
                 } catch (Exception e) {
                     // Skips corrupted line if discovered
+                    Ui.print(Ui.corruptedFilesMessage());
                     Ui.print("Warning: Skipping corrupted line: " + line);
                 }
 

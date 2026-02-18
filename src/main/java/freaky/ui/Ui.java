@@ -31,7 +31,7 @@ public class Ui {
      * @return Greet message to be displayed.
      */
     public String greetMessage() {
-        return "Hello! I'm Freaky. \n"
+        return "Hello! This is Freaky. \n"
              + "What can I do for you?";
     }
 
@@ -41,7 +41,8 @@ public class Ui {
      * @return Bye message to be displayed.
      */
     public String byeMessage() {
-        return "You are leaving? T_T Please don't forget Freaky. Freaky is always here to chat with you.";
+        return "You are leaving? T_T Please don't forget Freaky. "
+             + "Freaky is always here to chat with you.";
     }
 
     /**
@@ -50,7 +51,7 @@ public class Ui {
      * @return Unknown command message to be displayed.
      */
     public String unKnownCommandMessage() {
-        return "Unknown command T_T";
+        return "This is an unknown command for Freaky T_T";
     }
 
     /**
@@ -58,7 +59,7 @@ public class Ui {
      *
      * @return Corrupted files message to be displayed.
      */
-    public String corruptedFilesMessage() {
+    public static String corruptedFilesMessage() {
         return "Error loading file. Tasks stored on hard disk may be corrupted. T_T";
     }
 
@@ -68,7 +69,7 @@ public class Ui {
      * @return Repeat message to be displayed.
      */
     public String repeatMessage() {
-        return "Freaky didn't catch what you say, can you please enter it again?";
+        return "Freaky didn't catch what you say, can you please enter it again? > w <";
     }
 
     /**
@@ -77,7 +78,8 @@ public class Ui {
      * @return Mark format message to be displayed.
      */
     public String markFormatMessage() {
-        return "No way broooo please enter an integer after 'mark' command to mark the corresponding task as done. \n"
+        return "No way broooo (◣_◢) \n"
+             + "Please enter an integer after 'mark' command to mark the corresponding task as done. \n"
              + "Try something like this: 'mark 2'.";
     }
 
@@ -87,8 +89,8 @@ public class Ui {
      * @return Unmark format message to be displayed.
      */
     public String unmarkFormatMessage() {
-        return "No way broooo please enter an integer after 'unmark' command to "
-               + "mark the corresponding task as undone. \n"
+        return "No way broooo (◣_◢) \n"
+             + "Please enter an integer after 'unmark' command to mark the corresponding task as undone. \n"
              + "Try something like this: 'unmark 2'.";
     }
 
@@ -119,7 +121,7 @@ public class Ui {
      * @return List size error message to be displayed.
      */
     public String listSizeError(int size) {
-        return "There is only " + String.valueOf(size) + " tasks in your list, please enter a valid task number.";
+        return "There is only " + String.valueOf(size) + " tasks in your list, please give Freaky a valid task number.";
     }
 
     /**
@@ -137,7 +139,7 @@ public class Ui {
      * @return Already mark message to be displayed.
      */
     public String alreadyMarkMessage() {
-        return "The task is already marked as done.";
+        return "The task is already marked as done. > w <";
     }
 
     /**
@@ -146,7 +148,7 @@ public class Ui {
      * @return Already unmark message to be displayed.
      */
     public String alreadyUnmarkMessage() {
-        return "The task is still undone brooooo.";
+        return "The task is still undone brooooo. (◣_◢)";
     }
 
     /**
@@ -155,7 +157,7 @@ public class Ui {
      * @return Mark success message to be displayed.
      */
     public String markSuccessMessage(Task task) {
-        return "Nice! I've marked this task as done: \n"
+        return "Nice! Freaky has marked this task as done: \n"
              + "  " + task.print();
     }
 
@@ -165,7 +167,7 @@ public class Ui {
      * @return Unmark success message to be displayed.
      */
     public String unmarkSuccessMessage(Task task) {
-        return "OK, I've marked this task as not done yet: \n"
+        return "Oh no. Freaky has marked this task as not done yet: \n"
              + "  " + task.print();
     }
 
@@ -175,7 +177,8 @@ public class Ui {
      * @return To-do format message to be displayed.
      */
     public String toDoFormatMessage() {
-        return "No way broooo please enter a task description after 'todo' command to add a todo task to the list. \n"
+        return "No way broooo (◣_◢) \n"
+             + "Please enter a task description after 'todo' command to add a todo task to the list. \n"
              + "Try something like this: 'todo praise Freaky'.";
     }
 
@@ -185,8 +188,9 @@ public class Ui {
      * @return Deadline format message to be displayed.
      */
     public String deadlineFormatMessage() {
-        return "No way broooo please enter a task description and a due date separated by '/by' "
-               + "after 'deadline' command to add a deadline task to the list. \n"
+        return "No way broooo (◣_◢) \n"
+             + "please enter a task description and a due date separated by '/by' after 'deadline' "
+               + "command to add a deadline task to the list. \n"
              + "Try something like this: 'deadline buy Freaky Premium /by 2026-02-01 0000'.";
     }
 
@@ -196,7 +200,8 @@ public class Ui {
      * @return Event format message to be displayed.
      */
     public String eventFormatMessage() {
-        return "No way broooo please enter a task description, a starting time and an ending time separated by "
+        return "No way broooo (◣_◢) \n"
+             + "Please enter a task description, a starting time and an ending time separated by "
                + "'/from' and '/to' after 'event' command to add an event task to the list. \n"
              + "Try something like this: 'event chat with Freaky /from 2026-02-01 0000 /to 3026-02-01 0000'.";
     }
@@ -207,7 +212,8 @@ public class Ui {
      * @return Check format message to be displayed.
      */
     public String checkFormatMessage() {
-        return "There is a format error broooo. Please try the following format for check command. \n"
+        return "There is a format error broooo (◣_◢) \n"
+             + "Please try the following format for check command. \n"
              + "'check':                   default checks both closest deadlines and events \n"
              + "'check n':                 checks both n closest deadlines and events \n"
              + "'check deadline/event':    checks 3 closest deadlines/events \n"
@@ -220,8 +226,8 @@ public class Ui {
      * @return Deadline date time error message to be displayed.
      */
     public String deadlineDateTimeErrorMessage() {
-        return "Brooooo Freaky isn't smart enough to understand the date, please enter the date in "
-               + "format yyyy-MM-dd HHmm. \n"
+        return "Brooooo Freaky isn't smart enough to understand the date T_T \n"
+             + "Please enter the date in the format yyyy-MM-dd HHmm. \n"
              + "Try something like this: 'deadline buy Freaky Premium /by 2026-02-01 0000'.";
     }
 
@@ -231,8 +237,8 @@ public class Ui {
      * @return Event date time error message to be displayed.
      */
     public String eventDateTimeErrorMessage() {
-        return "Brooooo Freaky isn't smart enough to understand the date, please enter the date in "
-               + "format yyyy-MM-dd HHmm. \n"
+        return "Brooooo Freaky isn't smart enough to understand the date T_T \n"
+             + "Please enter the date in the format yyyy-MM-dd HHmm. \n"
              + "Try something like this: 'event chat with Freaky /from 2026-02-01 0000 /to 3026-02-01 0000'.";
     }
 
@@ -244,7 +250,7 @@ public class Ui {
      * @return Task added message to be displayed.
      */
     public String taskAddedMessage(Task task, TaskList tasks) {
-        return "Got it. I've added this task: \n"
+        return "Got it. Freaky has added this task: \n"
              + "  " + task.print() + "\n"
              + "Now you have " + String.valueOf(tasks.size()) + " tasks in the list.";
     }
@@ -255,7 +261,8 @@ public class Ui {
      * @return Delete format message to be displayed.
      */
     public String deleteFormatMessage() {
-        return "No way broooo please enter an integer after 'delete' command to delete the corresponding task. \n"
+        return "No way broooo (◣_◢) \n"
+             + "Please enter an integer after 'delete' command to delete the corresponding task. \n"
              + "Try something like this: 'delete 2'.";
     }
 
@@ -275,7 +282,7 @@ public class Ui {
      * @return Delete success message to be displayed.
      */
     public String deleteSuccessMessage(Task removedTask, TaskList taskList) {
-        return "Noted. I've removed this task: \n"
+        return "Noted. Freaky has removed this task: \n"
              + "  " + removedTask.print() + "\n"
              + "Now you have " + taskList.size() + " tasks in the list.";
     }
@@ -286,7 +293,7 @@ public class Ui {
      * @return Find format message to be displayed.
      */
     public String findFormatMessage() {
-        return "Broooo you need to provide a keyword to find tasks! \n"
+        return "Broooo you need to provide a keyword to find tasks! (◣_◢) \n"
              + "Try something like: 'find book'";
     }
 
@@ -347,7 +354,7 @@ public class Ui {
      */
     public String checkDeadlineList(int check, TaskList deadlineList) {
 
-        String msg = "Checking the coming " + String.valueOf(check) + " deadlines in your list... \n";
+        String msg = "Checking the incoming " + String.valueOf(check) + " deadlines in your list... \n";
 
         if (check > deadlineList.size()) {
             if (deadlineList.size() == 0) {
@@ -359,7 +366,7 @@ public class Ui {
         }
 
         if (deadlineList.size() > 0) {
-            msg += "Here are the coming " + String.valueOf(deadlineList.size())
+            msg += "Here are the incoming " + String.valueOf(deadlineList.size())
                    + " deadlines in your list: \n";
         }
 
