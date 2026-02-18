@@ -31,7 +31,13 @@ public class Ui {
      * @return Greet message to be displayed.
      */
     public String greetMessage() {
-        return "Hello! This is Freaky. \n"
+        return "Hello! This is \n"
+             + "  ███████╗ ██████╗    ███████╗  █████╗     ██╗   ██╗ ██╗   ██╗         \n"
+             + "  ██╔════╝ ██╔══██╗ ██╔════╝ ██╔══██╗ ██║ ██╔╝╚██╗ ██║                 \n"
+             + "  █████╗      ██████╔╝ █████╗      ███████║ █████╔╝  ╚████╔╝           \n"
+             + "  ██╔══╝      ██╔██╗      ██╔══╝      ██╔══██║ ██╔═██╗    ╚██╔╝        \n"
+             + "  ██║              ██║      ██║███████╗ ██║     ██║ ██║   ██╗      ██║ \n"
+             + "  ╚═╝              ╚═╝      ╚═╝╚══════╝ ╚═╝     ╚═╝ ╚═╝   ╚═╝      ╚═╝ \n"
              + "What can I do for you?";
     }
 
