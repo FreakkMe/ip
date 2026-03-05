@@ -3,6 +3,7 @@ package freaky.ui;
 import freaky.task.Task;
 import freaky.task.TaskList;
 
+
 /**
  * Handles all user interactions for the Freaky chatbot.
  * This includes printing messages to the console for greetings, task updates and errors, depending on user prompts.
@@ -31,14 +32,16 @@ public class Ui {
      * @return Greet message to be displayed.
      */
     public String greetMessage() {
-        return "Hello! This is \n"
-             + "  ███████╗ ██████╗    ███████╗  █████╗     ██╗   ██╗ ██╗   ██╗         \n"
-             + "  ██╔════╝ ██╔══██╗ ██╔════╝ ██╔══██╗ ██║ ██╔╝╚██╗ ██║                 \n"
-             + "  █████╗      ██████╔╝ █████╗      ███████║ █████╔╝  ╚████╔╝           \n"
-             + "  ██╔══╝      ██╔██╗      ██╔══╝      ██╔══██║ ██╔═██╗    ╚██╔╝        \n"
-             + "  ██║              ██║      ██║███████╗ ██║     ██║ ██║   ██╗      ██║ \n"
-             + "  ╚═╝              ╚═╝      ╚═╝╚══════╝ ╚═╝     ╚═╝ ╚═╝   ╚═╝      ╚═╝ \n"
-             + "What can I do for you?";
+        return """
+             Hello! This is
+             ███████╗ ██████╗    ███████╗  █████╗     ██╗   ██╗ ██╗   ██╗
+             ██╔════╝ ██╔══██╗ ██╔════╝ ██╔══██╗ ██║ ██╔╝╚██╗ ██║
+             █████╗      ██████╔╝ █████╗      ███████║ █████╔╝  ╚████╔╝
+             ██╔══╝      ██╔██╗      ██╔══╝      ██╔══██║ ██╔═██╗    ╚██╔╝
+             ██║              ██║      ██║███████╗ ██║     ██║ ██║   ██╗      ██║
+             ╚═╝              ╚═╝      ╚═╝╚══════╝ ╚═╝     ╚═╝ ╚═╝   ╚═╝      ╚═╝
+             What can I do for you?
+             """;
     }
 
     /**
