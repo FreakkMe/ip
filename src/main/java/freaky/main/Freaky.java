@@ -449,7 +449,7 @@ public class Freaky {
             return ui.checkFormatMessage();
         }
 
-        // Returns the print message
+        // Returns the check tasks info
         return response.toString().trim();
     }
 
