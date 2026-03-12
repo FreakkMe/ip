@@ -40,6 +40,7 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().setFreaky(freaky); // inject the Freaky instance
             stage.show();
 
+        // Prints an error message for IO exception
         } catch (IOException e) {
             e.printStackTrace();
         }
