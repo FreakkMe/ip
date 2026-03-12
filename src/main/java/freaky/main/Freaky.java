@@ -254,6 +254,7 @@ public class Freaky {
         tasks.remove(taskNumber);
         storage.save(tasks.getTasks());
 
+        // Returns the delete message
         return ui.deleteSuccessMessage(removed, tasks);
     }
 
