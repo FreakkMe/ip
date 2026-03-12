@@ -480,6 +480,7 @@ public class Freaky {
             }
         }
 
+        // Returns the tasks found by the command
         return ui.findSuccessMessage(matches, keyword);
     }
 
