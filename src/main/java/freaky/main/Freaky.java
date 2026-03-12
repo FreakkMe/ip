@@ -448,6 +448,7 @@ public class Freaky {
             return ui.checkFormatMessage();
         }
 
+        // Returns the print message
         return response.toString().trim();
     }
 
