@@ -99,7 +99,7 @@ public class Freaky {
         } else if (input.startsWith("find")) {
             return handleFind(input);
 
-        // It's an unknown command
+        // An unknown command
         } else {
             return ui.unKnownCommandMessage();
         }
